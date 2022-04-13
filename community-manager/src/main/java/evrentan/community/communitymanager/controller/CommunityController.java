@@ -1,7 +1,7 @@
 package evrentan.community.communitymanager.controller;
 
 import evrentan.community.communitymanager.dto.Community;
-import evrentan.community.communitymanager.service.CommunityInterface;
+import evrentan.community.communitymanager.service.CommunityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,10 +25,10 @@ import java.util.UUID;
 @Tag(name = "Community Related APIs")
 public class CommunityController {
 
-  private final CommunityInterface communityInterface;
+  private final CommunityService communityService;
 
-  public CommunityController(CommunityInterface communityInterface) {
-    this.communityInterface = communityInterface;
+  public CommunityController(CommunityService communityService) {
+    this.communityService = communityService;
   }
 
   /**
@@ -49,7 +50,8 @@ public class CommunityController {
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
   public ResponseEntity<Community> createCommunity(@RequestBody @NotNull Community community) {
-    return ResponseEntity.ok(this.communityInterface.createCommunity(community));
+    final Community communityCreated = this.communityService.createCommunity(community);
+    return ResponseEntity.created(URI.create(communityCreated.getId().toString())).body(communityCreated);
   }
 
   /**
@@ -70,7 +72,7 @@ public class CommunityController {
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
   public ResponseEntity<List<Community>> getAllCommunities() {
-    return ResponseEntity.ok(this.communityInterface.getCommunities());
+    return ResponseEntity.ok(this.communityService.getCommunities());
   }
 
   /**
@@ -92,7 +94,7 @@ public class CommunityController {
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
   public ResponseEntity<Community> getCommunity(@PathVariable(value = "id") UUID id) {
-    return ResponseEntity.ok(this.communityInterface.getCommunity(id));
+    return ResponseEntity.ok(this.communityService.getCommunity(id));
   }
 
   /**
@@ -115,7 +117,7 @@ public class CommunityController {
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
   public ResponseEntity<Community> updateCommunity(@PathVariable(value = "id") UUID id, @RequestBody @NotNull Community community) {
-    return ResponseEntity.ok(this.communityInterface.updateCommunity(id, community));
+    return ResponseEntity.ok(this.communityService.updateCommunity(id, community));
   }
 
   /**
@@ -136,7 +138,7 @@ public class CommunityController {
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
-  public ResponseEntity<Community> updateUserStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull Community community) {
-    return ResponseEntity.ok(this.communityInterface.updateCommunityStatus(id, community.isActive()));
+  public ResponseEntity<Community> updateCommunityStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull Community community) {
+    return ResponseEntity.ok(this.communityService.updateCommunityStatus(id, community.isActive()));
   }
 }
