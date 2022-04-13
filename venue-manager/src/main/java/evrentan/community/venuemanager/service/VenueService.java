@@ -1,0 +1,70 @@
+package evrentan.community.venuemanager.service;
+
+import evrentan.community.venuemanager.dto.Venue;
+
+import java.util.List;
+import java.util.UUID;
+
+/**
+ * Venue Service Interface Class
+ *
+ * @author <a href="https://github.com/evrentan">Evren Tan</a>
+ * @since 1.0.0
+ */
+public interface VenueService {
+
+  /**
+   * Create a venue instance in the database
+   *
+   * @param venue venue to be created. Please, see the {@link Venue} class for details.
+   * @return Venue which is created. Please, see the {@link Venue} class for details.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  Venue createVenue(Venue venue);
+
+  /**
+   * Return all venue instances in the database
+   *
+   * @return List<Venue>. Please, see the {@link Venue} class for details.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  List<Venue> getVenues();
+
+  /**
+   * Return a venue instance by using its id in the database
+   *
+   * @param id venue id to be filtered
+   * @return Venue. Please, see the {@link Venue} class for details.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  Venue getVenue(UUID id);
+
+  /**
+   * Update a venue instance in the database
+   *
+   * @param id venue id to be updated.
+   * @param venue venue instance to be updated. Please, see the {@link Venue} class for details.
+   * @return Venue which is updated. Please, see the {@link Venue} class for details.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  Venue updateVenue(UUID id, Venue venue);
+
+  /**
+   * Update a venue status instance in the database
+   *
+   * @param id venue id to be updated.
+   * @param status status of the venue to be updated.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  Venue updateVenueStatus(UUID id, boolean status);
+}

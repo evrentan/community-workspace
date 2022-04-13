@@ -4,7 +4,7 @@ import evrentan.community.communitymanager.dto.Community;
 import evrentan.community.communitymanager.entity.CommunityEntity;
 import evrentan.community.communitymanager.mapper.CommunityMapper;
 import evrentan.community.communitymanager.repository.CommunityRepository;
-import evrentan.community.communitymanager.service.CommunityInterface;
+import evrentan.community.communitymanager.service.CommunityService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +19,11 @@ import java.util.UUID;
  * @since 1.0.0
  */
 @Service
-public class CommunityService implements CommunityInterface {
+public class CommunityServiceImpl implements CommunityService {
 
   private final CommunityRepository communityRepository;
 
-  public CommunityService(CommunityRepository communityRepository) {
+  public CommunityServiceImpl(CommunityRepository communityRepository) {
     this.communityRepository = communityRepository;
   }
 

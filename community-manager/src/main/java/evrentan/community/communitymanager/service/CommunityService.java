@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Community Interface Class
+ * Community Service Interface Class
  *
  * @author <a href="https://github.com/evrentan">Evren Tan</a>
  * @since 1.0.0
  */
-public interface CommunityInterface {
+public interface CommunityService {
 
   /**
    * Create a community instance in the database
