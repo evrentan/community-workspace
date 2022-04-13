@@ -73,9 +73,7 @@ create table if not exists room
     name        varchar(255),
     description text,
     capacity    integer,
-    venue_id    uuid,
-    is_active   boolean default true,
-    foreign key (venue_id) references venue (id)
+    is_active   boolean default true
 );
 
 comment on table room is 'Stores room information';
@@ -83,8 +81,23 @@ comment on column room.id is 'Unique identifier for the room. Type is uuid';
 comment on column room.name is 'Name of the room. Type is varchar(255)';
 comment on column room.description is 'Description of the room. Type is text';
 comment on column room.capacity is 'Capacity of the room. Type is integer';
-comment on column room.venue_id is 'Unique identifier for the venue. Type is uuid. Foreign key to venue.id';
 comment on column room.is_active is 'Indicates whether the room is active or not. Type is boolean and default is true';
+
+create table if not exists venue_room
+(
+    id          uuid primary key default gen_random_uuid(),
+    venue_id    uuid,
+    room_id     uuid,
+    is_active   boolean default true,
+    foreign key (venue_id) references venue (id),
+    foreign key (room_id) references room (id)
+);
+
+comment on table venue_room is 'Stores venue-room information';
+comment on column venue_room.id is 'Unique identifier for the venue-room. Type is uuid';
+comment on column venue_room.venue_id is 'Unique identifier for the venue. Type is uuid. Foreign key to venue.id';
+comment on column venue_room.room_id is 'Unique identifier for the room. Type is uuid. Foreign key to room.id';
+comment on column venue_room.is_active is 'Indicates whether the venue-room is active or not. Type is boolean and default is true';
 
 create table if not exists event
 (
@@ -125,7 +138,7 @@ comment on column guest.id is 'Unique identifier for the guest. Type is uuid';
 comment on column guest.user_id is 'Unique identifier for the application user. Type is uuid. Foreign key to application_user.id';
 comment on column guest.is_active is 'Indicates whether the guest is active or not. Type is boolean and default is true';
 
-create table if not exists event_community_relation
+create table if not exists event_community
 (
     id           uuid primary key default gen_random_uuid(),
     event_id     uuid,
@@ -135,13 +148,13 @@ create table if not exists event_community_relation
     foreign key (community_id) references community (id)
 );
 
-comment on table event_community_relation is 'Stores event community relation information';
-comment on column event_community_relation.id is 'Unique identifier for the event community relation. Type is uuid';
-comment on column event_community_relation.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
-comment on column event_community_relation.community_id is 'Unique identifier for the community. Type is uuid. Foreign key to community.id';
-comment on column event_community_relation.is_active is 'Indicates whether the event community relation is active or not. Type is boolean and default is true';
+comment on table event_community is 'Stores event-community information';
+comment on column event_community.id is 'Unique identifier for the event community relation. Type is uuid';
+comment on column event_community.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
+comment on column event_community.community_id is 'Unique identifier for the community. Type is uuid. Foreign key to community.id';
+comment on column event_community.is_active is 'Indicates whether the event community relation is active or not. Type is boolean and default is true';
 
-create table if not exists event_venue_relation
+create table if not exists event_venue
 (
     id       uuid primary key default gen_random_uuid(),
     event_id uuid,
@@ -151,13 +164,13 @@ create table if not exists event_venue_relation
     foreign key (venue_id) references venue (id)
 );
 
-comment on table event_venue_relation is 'Stores event venue relation information';
-comment on column event_venue_relation.id is 'Unique identifier for the event venue relation. Type is uuid';
-comment on column event_venue_relation.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
-comment on column event_venue_relation.venue_id is 'Unique identifier for the venue. Type is uuid. Foreign key to venue.id';
-comment on column event_venue_relation.is_active is 'Indicates whether the event venue relation is active or not. Type is boolean and default is true';
+comment on table event_venue is 'Stores event-venue information';
+comment on column event_venue.id is 'Unique identifier for the event venue relation. Type is uuid';
+comment on column event_venue.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
+comment on column event_venue.venue_id is 'Unique identifier for the venue. Type is uuid. Foreign key to venue.id';
+comment on column event_venue.is_active is 'Indicates whether the event venue relation is active or not. Type is boolean and default is true';
 
-create table if not exists event_room_relation
+create table if not exists event_room
 (
     id       uuid primary key default gen_random_uuid(),
     event_id uuid,
@@ -167,13 +180,13 @@ create table if not exists event_room_relation
     foreign key (room_id) references room (id)
 );
 
-comment on table event_room_relation is 'Stores event room relation information';
-comment on column event_room_relation.id is 'Unique identifier for the event room relation. Type is uuid';
-comment on column event_room_relation.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
-comment on column event_room_relation.room_id is 'Unique identifier for the room. Type is uuid. Foreign key to room.id';
-comment on column event_room_relation.is_active is 'Indicates whether the event room relation is active or not. Type is boolean and default is true';
+comment on table event_room is 'Stores event-room information';
+comment on column event_room.id is 'Unique identifier for the event room relation. Type is uuid';
+comment on column event_room.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
+comment on column event_room.room_id is 'Unique identifier for the room. Type is uuid. Foreign key to room.id';
+comment on column event_room.is_active is 'Indicates whether the event room relation is active or not. Type is boolean and default is true';
 
-create table if not exists event_speaker_relation
+create table if not exists event_speaker
 (
     id         uuid primary key default gen_random_uuid(),
     event_id   uuid,
@@ -183,12 +196,12 @@ create table if not exists event_speaker_relation
     foreign key (speaker_id) references speaker (id)
 );
 
-comment on table event_speaker_relation is 'Stores event speaker relation information';
-comment on column event_speaker_relation.id is 'Unique identifier for the event speaker relation. Type is uuid';
-comment on column event_speaker_relation.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
-comment on column event_speaker_relation.speaker_id is 'Unique identifier for the speaker. Type is uuid. Foreign key to speaker.id';
+comment on table event_speaker is 'Stores event-speaker information';
+comment on column event_speaker.id is 'Unique identifier for the event speaker relation. Type is uuid';
+comment on column event_speaker.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
+comment on column event_speaker.speaker_id is 'Unique identifier for the speaker. Type is uuid. Foreign key to speaker.id';
 
-create table if not exists event_guest_relation
+create table if not exists event_guest
 (
     id       uuid primary key default gen_random_uuid(),
     event_id uuid,
@@ -198,7 +211,7 @@ create table if not exists event_guest_relation
     foreign key (guest_id) references guest (id)
 );
 
-comment on table event_guest_relation is 'Stores event guest relation information';
-comment on column event_guest_relation.id is 'Unique identifier for the event guest relation. Type is uuid';
-comment on column event_guest_relation.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
-comment on column event_guest_relation.guest_id is 'Unique identifier for the guest. Type is uuid. Foreign key to guest.id';
+comment on table event_guest is 'Stores event-guest information';
+comment on column event_guest.id is 'Unique identifier for the event guest relation. Type is uuid';
+comment on column event_guest.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
+comment on column event_guest.guest_id is 'Unique identifier for the guest. Type is uuid. Foreign key to guest.id';

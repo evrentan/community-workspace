@@ -53,14 +53,6 @@ public class Room {
   private Integer capacity;
 
   /**
-   * Venue ID that the Room is located in UUID Type.
-   *
-   * @since 1.0.0
-   */
-  @Schema(description = "Venue ID that the Room is located in UUID Type")
-  private UUID venueId;
-
-  /**
    * Indicates if the venue is active or not.
    *
    * @since 1.0.0

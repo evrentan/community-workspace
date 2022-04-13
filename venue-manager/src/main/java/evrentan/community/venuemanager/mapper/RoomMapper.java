@@ -31,7 +31,6 @@ public class RoomMapper {
         .name(room.getName())
         .description(room.getDescription())
         .capacity(room.getCapacity())
-        .venueId(room.getVenueId())
         .active(room.isActive())
         .build();
   }
@@ -50,7 +49,6 @@ public class RoomMapper {
         .name(roomEntity.getName())
         .description(roomEntity.getDescription())
         .capacity(roomEntity.getCapacity())
-        .venueId(roomEntity.getVenueId())
         .active(roomEntity.isActive())
         .build();
   }
