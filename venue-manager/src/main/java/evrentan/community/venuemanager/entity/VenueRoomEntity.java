@@ -6,21 +6,21 @@ import javax.persistence.*;
 import java.util.UUID;
 
 /**
- * Room Entity Class represents the venue table in the database.
- * It is represented by {@link evrentan.community.venuemanager.dto.Room} in DTO level.
+ * VenueRoom Entity Class represents the venue_room table in the database.
+ * It is represented by {@link evrentan.community.venuemanager.dto.VenueRoom} in DTO level.
  *
  * @author <a href="https://github.com/evrentan">Evren Tan</a>
  * @since 1.0.0
  */
 @Entity
-@Table(name = "room")
+@Table(name = "venue_room")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode @ToString
 @Builder
-public class RoomEntity {
+public class VenueRoomEntity {
   /**
    * Room ID in UUID Type.
    * It is equalized to the id column in the database.
@@ -37,37 +37,27 @@ public class RoomEntity {
   private UUID id;
 
   /**
-   * Room Name in String Type.
-   * It is equalized to the name column in the database.
+   * Venue ID in UUID Type.
+   * It is equalized to the venue_id column in the database.
    *
    * @since 1.0.0
    */
   @Basic
-  @Column(name = "name")
-  private String name;
+  @Column(name = "venue_id")
+  private UUID venueId;
 
   /**
-   * Room Description in String Type.
-   * It is equalized to the description column in the database.
+   * Room ID in UUID Type.
+   * It is equalized to the room_id column in the database.
    *
    * @since 1.0.0
    */
   @Basic
-  @Column(name = "description")
-  private String description;
+  @Column(name = "room_id")
+  private UUID roomId;
 
   /**
-   * Room Capacity in Integer Type.
-   * It is equalized to the capacity column in the database.
-   *
-   * @since 1.0.0
-   */
-  @Basic
-  @Column(name = "capacity")
-  private Integer capacity;
-
-  /**
-   * Indicates whether the venue is active or not.
+   * Indicates whether the venue room association is active or not.
    * It is equalized to the is_active column in the database.
    *
    * @since 1.0.0

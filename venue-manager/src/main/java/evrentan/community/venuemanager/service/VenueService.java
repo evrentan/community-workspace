@@ -1,6 +1,7 @@
 package evrentan.community.venuemanager.service;
 
 import evrentan.community.venuemanager.dto.Venue;
+import evrentan.community.venuemanager.dto.VenueRoom;
 
 import java.util.List;
 import java.util.UUID;
@@ -67,4 +68,26 @@ public interface VenueService {
    * @since 1.0.0
    */
   Venue updateVenueStatus(UUID id, boolean status);
+
+  /**
+   * Add room(s) to a specific venue object by venue ID
+   *
+   * @param venueId is the venue id that is going to be updated.
+   * @param addedVenueRoomList is the new object that is going to be added to the existing one. Please, see the {@link VenueRoom} class for details.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  void addRooms(UUID venueId, List<VenueRoom> addedVenueRoomList);
+
+  /**
+   * Remove room(s) from a specific venue object by venue ID
+   *
+   * @param venueId is the venue id that is going to be updated.
+   * @param removedVenueRoomList is the new object that is going to be added to the existing one. Please, see the {@link VenueRoom} class for details.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  void removeRooms(UUID venueId, List<VenueRoom> removedVenueRoomList);
 }
