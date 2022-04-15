@@ -4,6 +4,7 @@ import evrentan.community.usermanager.dto.ApplicationUser;
 import evrentan.community.usermanager.entity.ApplicationUserEntity;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Application User Mapper Class which maps ApplicationUserEntity to ApplicationUser and vice versa.
@@ -26,6 +27,9 @@ public class ApplicationUserMapper {
    *  @since 1.0.0
    */
   public static ApplicationUserEntity toEntity(ApplicationUser applicationUser) {
+    if(Objects.isNull(applicationUser))
+      return null;
+
     return ApplicationUserEntity.builder()
         .id(applicationUser.getId())
         .fullName(applicationUser.getFullName())
@@ -48,6 +52,9 @@ public class ApplicationUserMapper {
    *  @since 1.0.0
    */
   public static ApplicationUser toDto(ApplicationUserEntity applicationUserEntity) {
+    if(Objects.isNull(applicationUserEntity))
+      return null;
+
     return ApplicationUser.builder()
         .id(applicationUserEntity.getId())
         .fullName(applicationUserEntity.getFullName())

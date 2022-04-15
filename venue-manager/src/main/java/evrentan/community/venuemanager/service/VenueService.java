@@ -90,4 +90,13 @@ public interface VenueService {
    * @since 1.0.0
    */
   void removeRooms(UUID venueId, List<VenueRoom> removedVenueRoomList);
+
+  /**
+   * Check if the venue exists by venue ID
+   * @param id is the venue id that is going to be checked.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  void checkVenueExists(UUID id);
 }

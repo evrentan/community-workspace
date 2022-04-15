@@ -1,6 +1,7 @@
 package evrentan.community.venuemanager.controller;
 
 import evrentan.community.venuemanager.dto.Room;
+import evrentan.community.venuemanager.dto.VenueRoom;
 import evrentan.community.venuemanager.service.RoomService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -140,5 +141,53 @@ public class RoomController {
   })
   public ResponseEntity<Room> updateRoomStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull Room room) {
     return ResponseEntity.ok(this.roomService.updateRoomStatus(id, room.isActive()));
+  }
+
+  /**
+   * REST end-point in order to assign a room to a venue.
+   * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
+   *
+   * @param venueId is the venue id that is going to be updated.
+   * @param assignedVenueRoom is the new object that is going to be added to the existing one. Please, see the {@link VenueRoom} class for details.
+   * @return ResponseEntity. Please, see the {@link ResponseEntity} class for details.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  @PatchMapping(value = "/assignToVenue")
+  @Operation(summary = "Add Room(s) to the Related Venue")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode  = "200", description  = "Successfully Add Room(s) from the Related Venue"),
+      @ApiResponse(responseCode  = "400", description  = "Bad Request"),
+      @ApiResponse(responseCode  = "404", description  = "Not Found"),
+      @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
+  })
+  public ResponseEntity assignToVenue(@RequestParam(value = "id") @NotNull UUID venueId, @RequestBody @NotNull VenueRoom assignedVenueRoom) {
+    UUID venueRoomUuid = this.roomService.assignToVenue(venueId, assignedVenueRoom);
+    return ResponseEntity.created(URI.create(venueRoomUuid.toString())).build();
+  }
+
+  /**
+   * REST end-point in order to add room(s) to a specific venue object by venue ID.
+   * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
+   *
+   * @param venueId is the venue id that is going to be updated.
+   * @param removedVenueRoom is the new object that is going to be added to the existing one. Please, see the {@link VenueRoom} class for details.
+   * @return ResponseEntity. Please, see the {@link ResponseEntity} class for details.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  @PatchMapping(value = "/removeFromVenue")
+  @Operation(summary = "Remove Room(s) from the Related Venue")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode  = "200", description  = "Successfully Remove Room(s) from the Related Venue"),
+      @ApiResponse(responseCode  = "400", description  = "Bad Request"),
+      @ApiResponse(responseCode  = "404", description  = "Not Found"),
+      @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
+  })
+  public ResponseEntity removeRoom(@RequestParam(value = "id") @NotNull UUID venueId, @RequestBody @NotNull VenueRoom removedVenueRoom) {
+    this.roomService.removeFromVenue(venueId, removedVenueRoom);
+    return ResponseEntity.accepted().build();
   }
 }

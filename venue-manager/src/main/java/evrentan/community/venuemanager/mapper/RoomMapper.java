@@ -4,6 +4,7 @@ import evrentan.community.venuemanager.dto.Room;
 import evrentan.community.venuemanager.entity.RoomEntity;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Room Mapper Class which maps RoomEntity to Room and vice versa.
@@ -26,6 +27,9 @@ public class RoomMapper {
    *  @since 1.0.0
    */
   public static RoomEntity toEntity(Room room) {
+    if(Objects.isNull(room))
+      return null;
+
     return RoomEntity.builder()
         .id(room.getId())
         .name(room.getName())
@@ -44,6 +48,9 @@ public class RoomMapper {
    *  @since 1.0.0
    */
   public static Room toDto(RoomEntity roomEntity) {
+    if(Objects.isNull(roomEntity))
+      return null;
+
     return Room.builder()
         .id(roomEntity.getId())
         .name(roomEntity.getName())
