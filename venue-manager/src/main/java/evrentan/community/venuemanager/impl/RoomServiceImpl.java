@@ -1,15 +1,16 @@
 package evrentan.community.venuemanager.impl;
 
 import evrentan.community.venuemanager.dto.Room;
+import evrentan.community.venuemanager.dto.VenueRoom;
 import evrentan.community.venuemanager.entity.RoomEntity;
 import evrentan.community.venuemanager.mapper.RoomMapper;
+import evrentan.community.venuemanager.mapper.VenueRoomMapper;
 import evrentan.community.venuemanager.repository.RoomRepository;
+import evrentan.community.venuemanager.repository.VenueRoomRepository;
+import evrentan.community.venuemanager.service.VenueService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Room Service Implementation for Room Service Layer.
@@ -20,10 +21,16 @@ import java.util.UUID;
 @Service
 public class RoomServiceImpl implements evrentan.community.venuemanager.service.RoomService {
 
-  private final RoomRepository roomRepository;
+  private static final String ROOM_NOT_FOUND = "Room does not exist !!!";
 
-  public RoomServiceImpl(RoomRepository roomRepository) {
+  private final RoomRepository roomRepository;
+  private final VenueRoomRepository venueRoomRepository;
+  private final VenueService venueService;
+
+  public RoomServiceImpl(RoomRepository roomRepository, VenueRoomRepository venueRoomRepository, VenueService venueService) {
     this.roomRepository = roomRepository;
+    this.venueRoomRepository = venueRoomRepository;
+    this.venueService = venueService;
   }
 
   /**
@@ -103,5 +110,82 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
     roomEntity.setActive(status);
 
     return RoomMapper.toDto(this.roomRepository.save(roomEntity));
+  }
+
+  /**
+   * Assign a room to a venue
+   *
+   * @param roomId room id to be assigned to the venue
+   * @param assignedVenueRoom venue that the room is assigned to
+   * @return UUID which is the id of the VenueRoom instance. Please, see the {@link VenueRoom} class for details.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  @Override
+  public UUID assignToVenue(UUID roomId, VenueRoom assignedVenueRoom) {
+    this.checkRoomExists(roomId);
+    this.venueService.checkVenueExists(assignedVenueRoom.getVenueId());
+    VenueRoom venueRoom = VenueRoomMapper.toDto(this.venueRoomRepository.findByVenueIdAndRoomId(assignedVenueRoom.getVenueId(), roomId));
+
+    if(Objects.isNull(venueRoom)) {
+      return this.createVenueRoomWithRoomIdAndVenueRoom(roomId, assignedVenueRoom).getId();
+    } else if (!venueRoom.isActive()) {
+      venueRoom.setActive(true);
+      this.venueRoomRepository.save(VenueRoomMapper.toEntity(venueRoom));
+      return venueRoom.getId();
+    }
+
+    return venueRoom.getId();
+  }
+
+  /**
+   * Remove a room from a venue
+   *
+   * @param roomId room id to be removed to the venue
+   * @param removedVenueRoom venue that the room is removed from
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  public void removeFromVenue(UUID roomId, VenueRoom removedVenueRoom) {
+    this.checkRoomExists(roomId);
+    this.venueService.checkVenueExists(removedVenueRoom.getVenueId());
+    List<VenueRoom> venueRoomList = VenueRoomMapper.toDtoList(this.venueRoomRepository.findAllByVenueIdAndRoomIdInAndActive(removedVenueRoom.getVenueId(), Collections.singletonList(roomId), true));
+
+    venueRoomList.forEach(venueRoom -> {
+      venueRoom.setActive(false);
+    });
+
+    this.venueRoomRepository.saveAll(VenueRoomMapper.toEntityList(venueRoomList));
+  }
+
+  /**
+   * Check if the venue exists by venue ID
+   * @param id is the venue id that is going to be checked.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  private void checkRoomExists(UUID id) {
+    if(Objects.isNull(id) || !this.roomRepository.existsById(id))
+      throw new NoSuchElementException(ROOM_NOT_FOUND);
+  }
+
+  /**
+   * Create a venue room instance with room id and venue room instance.
+   *
+   * @param roomId is the room id that is going to be assigned to the venue
+   * @param assignedVenueRoom is the venue that the room is assigned to
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  private VenueRoom createVenueRoomWithRoomIdAndVenueRoom(UUID roomId, VenueRoom assignedVenueRoom) {
+    VenueRoom venueRoom = new VenueRoom();
+    venueRoom.setVenueId(assignedVenueRoom.getVenueId());
+    venueRoom.setRoomId(roomId);
+    venueRoom.setActive(true);
+    return VenueRoomMapper.toDto(this.venueRoomRepository.save(VenueRoomMapper.toEntity(venueRoom)));
   }
 }

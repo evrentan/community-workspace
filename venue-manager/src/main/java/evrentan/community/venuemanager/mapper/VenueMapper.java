@@ -4,6 +4,7 @@ import evrentan.community.venuemanager.dto.Venue;
 import evrentan.community.venuemanager.entity.VenueEntity;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Venue Mapper Class which maps VenueEntity to Venue and vice versa.
@@ -26,6 +27,9 @@ public class VenueMapper {
    *  @since 1.0.0
    */
   public static VenueEntity toEntity(Venue venue) {
+    if(Objects.isNull(venue))
+      return null;
+
     return VenueEntity.builder()
         .id(venue.getId())
         .name(venue.getName())
@@ -45,6 +49,9 @@ public class VenueMapper {
    *  @since 1.0.0
    */
   public static Venue toDto(VenueEntity venueEntity) {
+    if(Objects.isNull(venueEntity))
+      return null;
+
     return Venue.builder()
         .id(venueEntity.getId())
         .name(venueEntity.getName())

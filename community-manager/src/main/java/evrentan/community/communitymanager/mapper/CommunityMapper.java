@@ -4,6 +4,7 @@ import evrentan.community.communitymanager.dto.Community;
 import evrentan.community.communitymanager.entity.CommunityEntity;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Community Mapper Class which maps CommunityEntity to Community and vice versa.
@@ -26,6 +27,9 @@ public class CommunityMapper {
    *  @since 1.0.0
    */
   public static CommunityEntity toEntity(Community community) {
+    if(Objects.isNull(community))
+      return null;
+
     return CommunityEntity.builder()
         .id(community.getId())
         .name(community.getName())
@@ -43,6 +47,9 @@ public class CommunityMapper {
    *  @since 1.0.0
    */
   public static Community toDto(CommunityEntity communityEntity) {
+    if(Objects.isNull(communityEntity))
+      return null;
+
     return Community.builder()
         .id(communityEntity.getId())
         .name(communityEntity.getName())

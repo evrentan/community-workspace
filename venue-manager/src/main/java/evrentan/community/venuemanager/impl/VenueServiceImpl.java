@@ -24,7 +24,7 @@ import java.util.UUID;
 @Service
 public class VenueServiceImpl implements VenueService {
 
-  private static final String VENUE_NOT_FOUND = "Venue not found";
+  private static final String VENUE_NOT_FOUND = "Venue does not exist !!!";
 
   private final VenueRepository venueRepository;
   private final VenueRoomRepository venueRoomRepository;
@@ -194,8 +194,9 @@ public class VenueServiceImpl implements VenueService {
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
    * @since 1.0.0
    */
-  private void checkVenueExists(UUID id) {
-    if(!this.venueRepository.existsById(id))
+  @Override
+  public void checkVenueExists(UUID id) {
+    if(Objects.isNull(id) || !this.venueRepository.existsById(id))
       throw new NoSuchElementException(VENUE_NOT_FOUND);
   }
 }

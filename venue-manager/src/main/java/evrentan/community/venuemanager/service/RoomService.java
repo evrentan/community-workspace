@@ -1,6 +1,7 @@
 package evrentan.community.venuemanager.service;
 
 import evrentan.community.venuemanager.dto.Room;
+import evrentan.community.venuemanager.dto.VenueRoom;
 
 import java.util.List;
 import java.util.UUID;
@@ -67,4 +68,27 @@ public interface RoomService {
    * @since 1.0.0
    */
   Room updateRoomStatus(UUID id, boolean status);
+
+  /**
+   * Assign a room to a venue
+   *
+   * @param roomId room id to be assigned to the venue
+   * @param assignedVenueRoom venue that the room is assigned to
+   * @return UUID which is the id of the VenueRoom instance. Please, see the {@link evrentan.community.venuemanager.dto.VenueRoom} class for details.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  UUID assignToVenue(UUID roomId, VenueRoom assignedVenueRoom);
+
+  /**
+   * Remove a room from a venue
+   *
+   * @param roomId room id to be removed to the venue
+   * @param removedVenueRoom venue that the room is removed from
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  void removeFromVenue(UUID roomId, VenueRoom removedVenueRoom);
 }
