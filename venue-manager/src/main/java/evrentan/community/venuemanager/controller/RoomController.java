@@ -134,13 +134,14 @@ public class RoomController {
   @PatchMapping(value = "/updateRoomStatus")
   @Operation(summary = "Update a Room Status by Id & Status value")
   @ApiResponses(value = {
-      @ApiResponse(responseCode  = "200", description  = "Successfully Update the Related Room Status"),
+      @ApiResponse(responseCode  = "202", description  = "Successfully Update the Related Room Status"),
       @ApiResponse(responseCode  = "400", description  = "Bad Request"),
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
-  public ResponseEntity<Room> updateRoomStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull Room room) {
-    return ResponseEntity.ok(this.roomService.updateRoomStatus(id, room.isActive()));
+  public ResponseEntity updateRoomStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull Room room) {
+    this.roomService.updateRoomStatus(id, room.isActive());
+    return ResponseEntity.accepted().build();
   }
 
   /**
@@ -157,7 +158,7 @@ public class RoomController {
   @PatchMapping(value = "/assignToVenue")
   @Operation(summary = "Add Room(s) to the Related Venue")
   @ApiResponses(value = {
-      @ApiResponse(responseCode  = "200", description  = "Successfully Add Room(s) from the Related Venue"),
+      @ApiResponse(responseCode  = "201", description  = "Successfully Add Room(s) from the Related Venue"),
       @ApiResponse(responseCode  = "400", description  = "Bad Request"),
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
@@ -181,13 +182,13 @@ public class RoomController {
   @PatchMapping(value = "/removeFromVenue")
   @Operation(summary = "Remove Room(s) from the Related Venue")
   @ApiResponses(value = {
-      @ApiResponse(responseCode  = "200", description  = "Successfully Remove Room(s) from the Related Venue"),
+      @ApiResponse(responseCode  = "202", description  = "Successfully Remove Room(s) from the Related Venue"),
       @ApiResponse(responseCode  = "400", description  = "Bad Request"),
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
   public ResponseEntity removeRoom(@RequestParam(value = "id") @NotNull UUID venueId, @RequestBody @NotNull VenueRoom removedVenueRoom) {
-    this.roomService.removeFromVenue(venueId, removedVenueRoom);
+    this.roomService.removeFromVenueByVenueId(venueId, removedVenueRoom);
     return ResponseEntity.accepted().build();
   }
 }

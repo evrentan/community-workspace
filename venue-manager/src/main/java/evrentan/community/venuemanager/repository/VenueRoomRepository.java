@@ -63,4 +63,16 @@ public interface VenueRoomRepository extends JpaRepository<VenueRoomEntity, UUID
    * @since 1.0.0
    */
   List<VenueRoomEntity> findAllByVenueIdAndActive(UUID venueId, boolean active);
+
+  /**
+   * Find all VenueRoomEntity by room id and active. Please, see the {@link VenueRoomEntity} class for details.
+   *
+   * @param roomId The venue id to find all related VenueRoomEntity.
+   * @param active The active to find all related VenueRoomEntity.
+   * @return List of VenueRoomEntity
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  List<VenueRoomEntity> findAllByRoomIdAndActive(UUID roomId, boolean active);
 }
