@@ -6,7 +6,6 @@ import evrentan.community.venuemanager.entity.RoomEntity;
 import evrentan.community.venuemanager.mapper.RoomMapper;
 import evrentan.community.venuemanager.mapper.VenueRoomMapper;
 import evrentan.community.venuemanager.repository.RoomRepository;
-import evrentan.community.venuemanager.repository.VenueRoomRepository;
 import evrentan.community.venuemanager.service.VenueService;
 import org.springframework.stereotype.Service;
 
@@ -86,7 +85,7 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
    */
   @Override
   public Room updateRoom(UUID id, Room room) {
-    if(!Objects.equals(id, room.getId()))
+    if (!Objects.equals(id, room.getId()))
       throw new IllegalArgumentException("Ids do not match");
 
     if (!this.roomRepository.existsById(id))
@@ -105,11 +104,13 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
    * @since 1.0.0
    */
   @Override
-  public Room updateRoomStatus(UUID id, boolean status) {
+  public void updateRoomStatus(UUID id, boolean status) {
     RoomEntity roomEntity = this.roomRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Room not found"));
     roomEntity.setActive(status);
+    this.roomRepository.save(roomEntity);
 
-    return RoomMapper.toDto(this.roomRepository.save(roomEntity));
+    if (!status)
+      this.removeRoomFromVenue(id);
   }
 
   /**
@@ -128,7 +129,7 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
     this.venueService.checkVenueExists(assignedVenueRoom.getVenueId());
     VenueRoom venueRoom = VenueRoomMapper.toDto(this.venueRoomRepository.findByVenueIdAndRoomId(assignedVenueRoom.getVenueId(), roomId));
 
-    if(Objects.isNull(venueRoom)) {
+    if (Objects.isNull(venueRoom)) {
       return this.createVenueRoomWithRoomIdAndVenueRoom(roomId, assignedVenueRoom).getId();
     } else if (!venueRoom.isActive()) {
       venueRoom.setActive(true);
@@ -153,9 +154,7 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
     this.venueService.checkVenueExists(removedVenueRoom.getVenueId());
     List<VenueRoom> venueRoomList = VenueRoomMapper.toDtoList(this.venueRoomRepository.findAllByVenueIdAndRoomIdInAndActive(removedVenueRoom.getVenueId(), Collections.singletonList(roomId), true));
 
-    venueRoomList.forEach(venueRoom -> {
-      venueRoom.setActive(false);
-    });
+    venueRoomList.forEach(venueRoom -> venueRoom.setActive(false));
 
     this.venueRoomRepository.saveAll(VenueRoomMapper.toEntityList(venueRoomList));
   }
@@ -168,7 +167,7 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
    * @since 1.0.0
    */
   private void checkRoomExists(UUID id) {
-    if(Objects.isNull(id) || !this.roomRepository.existsById(id))
+    if (Objects.isNull(id) || !this.roomRepository.existsById(id))
       throw new NoSuchElementException(ROOM_NOT_FOUND);
   }
 
@@ -187,5 +186,20 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
     venueRoom.setRoomId(roomId);
     venueRoom.setActive(true);
     return VenueRoomMapper.toDto(this.venueRoomRepository.save(VenueRoomMapper.toEntity(venueRoom)));
+  }
+
+  /**
+   * Remove a room from a venue
+   * @param id is the room id that is going to be removed from the venue
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  private void removeRoomFromVenue(UUID id) {
+    List<VenueRoom> activeVenueRoomListByRoomId = VenueRoomMapper.toDtoList(this.venueRoomRepository.findAllByRoomIdAndActive(id, true));
+    if (!activeVenueRoomListByRoomId.isEmpty()) {
+      activeVenueRoomListByRoomId.forEach(venueRoom -> venueRoom.setActive(false));
+      this.venueRoomRepository.saveAll(VenueRoomMapper.toEntityList(activeVenueRoomListByRoomId));
+    }
   }
 }

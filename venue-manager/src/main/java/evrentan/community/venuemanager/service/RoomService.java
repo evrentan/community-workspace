@@ -67,7 +67,7 @@ public interface RoomService {
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
    * @since 1.0.0
    */
-  Room updateRoomStatus(UUID id, boolean status);
+  void updateRoomStatus(UUID id, boolean status);
 
   /**
    * Assign a room to a venue
