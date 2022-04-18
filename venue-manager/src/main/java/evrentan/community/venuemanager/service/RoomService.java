@@ -90,5 +90,5 @@ public interface RoomService {
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
    * @since 1.0.0
    */
-  void removeFromVenue(UUID roomId, VenueRoom removedVenueRoom);
+  void removeFromVenueByVenueId(UUID roomId, VenueRoom removedVenueRoom);
 }

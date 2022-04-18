@@ -6,6 +6,7 @@ import evrentan.community.venuemanager.entity.RoomEntity;
 import evrentan.community.venuemanager.mapper.RoomMapper;
 import evrentan.community.venuemanager.mapper.VenueRoomMapper;
 import evrentan.community.venuemanager.repository.RoomRepository;
+import evrentan.community.venuemanager.repository.VenueRoomRepository;
 import evrentan.community.venuemanager.service.VenueService;
 import org.springframework.stereotype.Service;
 
@@ -149,7 +150,7 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
    * @since 1.0.0
    */
-  public void removeFromVenue(UUID roomId, VenueRoom removedVenueRoom) {
+  public void removeFromVenueByVenueId(UUID roomId, VenueRoom removedVenueRoom) {
     this.checkRoomExists(roomId);
     this.venueService.checkVenueExists(removedVenueRoom.getVenueId());
     List<VenueRoom> venueRoomList = VenueRoomMapper.toDtoList(this.venueRoomRepository.findAllByVenueIdAndRoomIdInAndActive(removedVenueRoom.getVenueId(), Collections.singletonList(roomId), true));

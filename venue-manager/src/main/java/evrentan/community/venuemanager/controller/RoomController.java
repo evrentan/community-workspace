@@ -188,7 +188,7 @@ public class RoomController {
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
   public ResponseEntity removeRoom(@RequestParam(value = "id") @NotNull UUID venueId, @RequestBody @NotNull VenueRoom removedVenueRoom) {
-    this.roomService.removeFromVenue(venueId, removedVenueRoom);
+    this.roomService.removeFromVenueByVenueId(venueId, removedVenueRoom);
     return ResponseEntity.accepted().build();
   }
 }
