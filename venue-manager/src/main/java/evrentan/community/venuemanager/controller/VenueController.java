@@ -45,7 +45,7 @@ public class VenueController {
   @PostMapping
   @Operation(summary = "Create a Venue")
   @ApiResponses(value = {
-      @ApiResponse(responseCode  = "200", description  = "Successfully Venue Created"),
+      @ApiResponse(responseCode  = "201", description  = "Successfully Venue Created"),
       @ApiResponse(responseCode  = "400", description  = "Bad Request"),
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
@@ -112,13 +112,13 @@ public class VenueController {
   @PutMapping(value = "/{id}")
   @Operation(summary = "Update a Venue by Id")
   @ApiResponses(value = {
-      @ApiResponse(responseCode  = "200", description  = "Successfully Update the Related Venue"),
+      @ApiResponse(responseCode  = "202", description  = "Successfully Update the Related Venue"),
       @ApiResponse(responseCode  = "400", description  = "Bad Request"),
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
   public ResponseEntity<Venue> updateVenue(@PathVariable(value = "id") UUID id, @RequestBody @NotNull Venue venue) {
-    return ResponseEntity.ok(this.venueService.updateVenue(id, venue));
+    return ResponseEntity.accepted().body(this.venueService.updateVenue(id, venue));
   }
 
   /**
@@ -126,7 +126,6 @@ public class VenueController {
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *
    * @param id is the venue id that is going to be deleted.
-   * @return Venue Object within ResponseEntity. Please, see the {@link Venue} class for details.
    *
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
    * @since 1.0.0
@@ -134,13 +133,14 @@ public class VenueController {
   @PatchMapping(value = "/updateVenueStatus")
   @Operation(summary = "Update a Venue Status by Id & Status value")
   @ApiResponses(value = {
-      @ApiResponse(responseCode  = "200", description  = "Successfully Update the Related Venue Status"),
+      @ApiResponse(responseCode  = "202", description  = "Successfully Update the Related Venue Status"),
       @ApiResponse(responseCode  = "400", description  = "Bad Request"),
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
-  public ResponseEntity<Venue> updateVenueStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull Venue venue) {
-    return ResponseEntity.ok(this.venueService.updateVenueStatus(id, venue.isActive()));
+  public ResponseEntity updateVenueStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull Venue venue) {
+    this.venueService.updateVenueStatus(id, venue.isActive());
+    return ResponseEntity.accepted().build();
   }
 
   /**
@@ -157,7 +157,7 @@ public class VenueController {
   @PatchMapping(value = "/addRooms")
   @Operation(summary = "Add Room(s) to the Related Venue")
   @ApiResponses(value = {
-      @ApiResponse(responseCode  = "200", description  = "Successfully Add Room(s) from the Related Venue"),
+      @ApiResponse(responseCode  = "202", description  = "Successfully Add Room(s) from the Related Venue"),
       @ApiResponse(responseCode  = "400", description  = "Bad Request"),
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
@@ -181,7 +181,7 @@ public class VenueController {
   @PatchMapping(value = "/removeRooms")
   @Operation(summary = "Remove Room(s) from the Related Venue")
   @ApiResponses(value = {
-      @ApiResponse(responseCode  = "200", description  = "Successfully Remove Room(s) from the Related Venue"),
+      @ApiResponse(responseCode  = "202", description  = "Successfully Remove Room(s) from the Related Venue"),
       @ApiResponse(responseCode  = "400", description  = "Bad Request"),
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")

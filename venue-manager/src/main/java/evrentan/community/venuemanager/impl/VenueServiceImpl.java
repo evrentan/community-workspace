@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Venue Service Implementation for Venue Service Layer.
@@ -105,11 +106,13 @@ public class VenueServiceImpl implements VenueService {
    * @since 1.0.0
    */
   @Override
-  public Venue updateVenueStatus(UUID id, boolean status) {
+  public void updateVenueStatus(UUID id, boolean status) {
     VenueEntity venueEntity = this.venueRepository.findById(id).orElseThrow(() -> new NoSuchElementException(VENUE_NOT_FOUND));
     venueEntity.setActive(status);
+    this.venueRepository.save(venueEntity);
 
-    return VenueMapper.toDto(this.venueRepository.save(venueEntity));
+    if (!status)
+      this.removeRoomsFromVenue(id);
   }
 
   /**
@@ -129,7 +132,7 @@ public class VenueServiceImpl implements VenueService {
     addedVenueRoomList.removeIf(addedVenueRoom -> Objects.isNull(addedVenueRoom.getRoomId()));
 
     //Find the existing venue room list by venue id
-    List<VenueRoom> venueRoomList = VenueRoomMapper.toDtoList(this.venueRoomRepository.findAllByVenueId(venueId));
+    List<VenueRoom> venueRoomList = VenueRoomMapper.toDtoList(this.venueRoomRepository.findAllByVenueIdAndRoomIdIn(venueId, addedVenueRoomList.stream().map(VenueRoom::getRoomId).collect(Collectors.toList())));
 
     //Find passive room list by venue id and that are in the addedVenueRoomList
     List<UUID> passiveRoomIdList = venueRoomList.stream()
@@ -198,5 +201,20 @@ public class VenueServiceImpl implements VenueService {
   public void checkVenueExists(UUID id) {
     if(Objects.isNull(id) || !this.venueRepository.existsById(id))
       throw new NoSuchElementException(VENUE_NOT_FOUND);
+  }
+
+  /**
+   * Remove rooms from a venue
+   * @param id is the venue id that the rooms are going to be removed from.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  private void removeRoomsFromVenue(UUID id) {
+    List<VenueRoom> activeVenueRoomListByVenueId = VenueRoomMapper.toDtoList(this.venueRoomRepository.findAllByVenueIdAndActive(id, true));
+    if (!activeVenueRoomListByVenueId.isEmpty()) {
+      activeVenueRoomListByVenueId.forEach(venueRoom -> venueRoom.setActive(false));
+      this.venueRoomRepository.saveAll(VenueRoomMapper.toEntityList(activeVenueRoomListByVenueId));
+    }
   }
 }

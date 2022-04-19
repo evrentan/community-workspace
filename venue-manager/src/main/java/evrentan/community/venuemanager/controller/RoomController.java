@@ -45,7 +45,7 @@ public class RoomController {
   @PostMapping
   @Operation(summary = "Create a Room")
   @ApiResponses(value = {
-      @ApiResponse(responseCode  = "200", description  = "Successfully Room Created"),
+      @ApiResponse(responseCode  = "201", description  = "Successfully Room Created"),
       @ApiResponse(responseCode  = "400", description  = "Bad Request"),
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
@@ -112,13 +112,13 @@ public class RoomController {
   @PutMapping(value = "/{id}")
   @Operation(summary = "Update a Room by Id")
   @ApiResponses(value = {
-      @ApiResponse(responseCode  = "200", description  = "Successfully Update the Related Room"),
+      @ApiResponse(responseCode  = "202", description  = "Successfully Update the Related Room"),
       @ApiResponse(responseCode  = "400", description  = "Bad Request"),
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
   public ResponseEntity<Room> updateRoom(@PathVariable(value = "id") UUID id, @RequestBody @NotNull Room room) {
-    return ResponseEntity.ok(this.roomService.updateRoom(id, room));
+    return ResponseEntity.accepted().body(this.roomService.updateRoom(id, room));
   }
 
   /**
