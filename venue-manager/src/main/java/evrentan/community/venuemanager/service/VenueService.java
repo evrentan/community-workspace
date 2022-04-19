@@ -67,7 +67,7 @@ public interface VenueService {
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
    * @since 1.0.0
    */
-  Venue updateVenueStatus(UUID id, boolean status);
+  void updateVenueStatus(UUID id, boolean status);
 
   /**
    * Add room(s) to a specific venue object by venue ID
