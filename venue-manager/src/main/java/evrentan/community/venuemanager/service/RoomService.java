@@ -84,11 +84,10 @@ public interface RoomService {
   /**
    * Remove a room from a venue
    *
-   * @param roomId room id to be removed to the venue
-   * @param removedVenueRoom venue that the room is removed from
+   * @param id room id to be removed to the venue
    *
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
    * @since 1.0.0
    */
-  void removeFromVenueByVenueId(UUID roomId, VenueRoom removedVenueRoom);
+  void removeFromVenue(UUID id);
 }
