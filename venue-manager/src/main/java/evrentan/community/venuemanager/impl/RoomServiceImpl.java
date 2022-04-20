@@ -144,20 +144,22 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
   /**
    * Remove a room from a venue
    *
-   * @param roomId room id to be removed to the venue
-   * @param removedVenueRoom venue that the room is removed from
+   * @param id room id to be removed to the venue
    *
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
    * @since 1.0.0
    */
-  public void removeFromVenueByVenueId(UUID roomId, VenueRoom removedVenueRoom) {
-    this.checkRoomExists(roomId);
-    this.venueService.checkVenueExists(removedVenueRoom.getVenueId());
-    List<VenueRoom> venueRoomList = VenueRoomMapper.toDtoList(this.venueRoomRepository.findAllByVenueIdAndRoomIdInAndActive(removedVenueRoom.getVenueId(), Collections.singletonList(roomId), true));
+  public void removeFromVenue(UUID id) {
+    this.checkRoomExists(id);
+    List<VenueRoom> relatedVenueRoom = VenueRoomMapper.toDtoList(this.venueRoomRepository.findAllByRoomIdAndActive(id, true));
+    this.venueService.checkVenueExists(Optional.ofNullable(relatedVenueRoom.get(0).getVenueId()).orElse(null));
 
-    venueRoomList.forEach(venueRoom -> venueRoom.setActive(false));
+    List<VenueRoom> venueRoomList = VenueRoomMapper.toDtoList(this.venueRoomRepository.findAllByVenueIdAndRoomIdInAndActive(relatedVenueRoom.get(0).getVenueId(), Collections.singletonList(id), true));
 
-    this.venueRoomRepository.saveAll(VenueRoomMapper.toEntityList(venueRoomList));
+    if (!venueRoomList.isEmpty()) {
+      venueRoomList.forEach(venueRoom -> venueRoom.setActive(false));
+      this.venueRoomRepository.saveAll(VenueRoomMapper.toEntityList(venueRoomList));
+    }
   }
 
   /**

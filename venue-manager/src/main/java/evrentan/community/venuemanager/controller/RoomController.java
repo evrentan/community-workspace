@@ -172,8 +172,7 @@ public class RoomController {
    * REST end-point in order to add room(s) to a specific venue object by venue ID.
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *
-   * @param venueId is the venue id that is going to be updated.
-   * @param removedVenueRoom is the new object that is going to be added to the existing one. Please, see the {@link VenueRoom} class for details.
+   * @param id is the room id that is going to be removed.
    * @return ResponseEntity. Please, see the {@link ResponseEntity} class for details.
    *
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
@@ -187,8 +186,8 @@ public class RoomController {
       @ApiResponse(responseCode  = "404", description  = "Not Found"),
       @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
-  public ResponseEntity removeRoom(@RequestParam(value = "id") @NotNull UUID venueId, @RequestBody @NotNull VenueRoom removedVenueRoom) {
-    this.roomService.removeFromVenueByVenueId(venueId, removedVenueRoom);
+  public ResponseEntity removeRoom(@RequestParam(value = "id") @NotNull UUID id) {
+    this.roomService.removeFromVenue(id);
     return ResponseEntity.accepted().build();
   }
 }
