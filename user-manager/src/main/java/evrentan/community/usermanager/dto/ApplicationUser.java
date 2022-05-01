@@ -80,16 +80,6 @@ public class ApplicationUser {
   private String websiteUrl;
 
   /**
-   * Application User Type in String Type.
-   * Possible values may be "owner", "admin", "user".
-   *
-   * @since 1.0.0
-   */
-  @Schema(description = "Application User Type. Possible values are owner, admin, user", allowableValues = {"owner", "admin", "user"})
-  @Pattern(regexp = "owner|admin|user", flags = Pattern.Flag.CASE_INSENSITIVE)
-  private String userType;
-
-  /**
    * Indicates if the application user is active or not.
    *
    * @since 1.0.0
