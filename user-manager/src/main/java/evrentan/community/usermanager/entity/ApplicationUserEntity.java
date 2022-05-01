@@ -22,6 +22,7 @@ import java.util.UUID;
 @EqualsAndHashCode @ToString
 @Builder
 public class ApplicationUserEntity {
+
   /**
    * Application User ID in UUID Type. It is equalized to the id column in the database.
    * It is the primary key of the table.
@@ -98,18 +99,6 @@ public class ApplicationUserEntity {
   @Basic
   @Column(name = "website_url")
   private String websiteUrl;
-
-  /**
-   * Application User Type in String Type.
-   * It is equalized to the user_type column in the database.
-   * Possible values may be "owner", "admin", "user".
-   *
-   * @since 1.0.0
-   */
-  @Basic
-  @Column(name = "user_type")
-  @Pattern(regexp = "owner|admin|user", flags = Pattern.Flag.CASE_INSENSITIVE)
-  private String userType;
 
   /**
    * Indicates whether the application user is active or not.

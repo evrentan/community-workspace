@@ -1,17 +1,3 @@
-create table if not exists community
-(
-    id          uuid primary key default gen_random_uuid(),
-    name        varchar(255),
-    description text,
-    is_active   boolean          default true
-);
-
-comment on table community is 'Stores community information';
-comment on column community.id is 'Unique identifier for the community. Type is uuid';
-comment on column community.name is 'Name of the community. Type is varchar(255)';
-comment on column community.description is 'Description of the community. Type is text';
-comment on column community.is_active is 'Indicates whether the community is active or not. Type is boolean and default is true';
-
 create table if not exists application_user
 (
     id               uuid primary key default gen_random_uuid(),
@@ -21,7 +7,6 @@ create table if not exists application_user
     linkedin_account varchar(255),
     github_account   varchar(255),
     website_url      varchar(255),
-    user_type        varchar(16),
     is_active        boolean          default true
 );
 
@@ -33,21 +18,54 @@ comment on column application_user.twitter_account is 'Twitter account of the ap
 comment on column application_user.linkedin_account is 'Linkedin account of the application user. Type is varchar(255)';
 comment on column application_user.github_account is 'Github account of the application user. Type is varchar(255)';
 comment on column application_user.website_url is 'Website url of the application user. Type is varchar(255)';
-comment on column application_user.user_type is 'Type of the application user. Type is varchar(16). Possible values; OWNER, ADMIN, SPEAKER, MEMBER';
 comment on column application_user.is_active is 'Indicates whether the application user is active or not. Type is boolean and default is true';
 
-create table if not exists speaker
+create table if not exists user_type
 (
     id      uuid primary key default gen_random_uuid(),
-    user_id uuid,
-    is_active boolean default true,
-    foreign key (user_id) references application_user (id)
+    code    varchar(16),
+    description text,
+    is_active boolean default true
 );
 
-comment on table speaker is 'Stores speaker information';
-comment on column speaker.id is 'Unique identifier for the speaker. Type is uuid';
-comment on column speaker.user_id is 'Unique identifier for the application user. Type is uuid. Foreign key to application_user.id';
-comment on column speaker.is_active is 'Indicates whether the speaker is active or not. Type is boolean and default is true';
+comment on table user_type is 'Stores user type information';
+comment on column user_type.id is 'Unique identifier for the user type. Type is uuid';
+comment on column user_type.code is 'Code of the user type. Type is varchar(16). Possible values; admin, owner, speaker, member, guest';
+comment on column user_type.description is 'Description of the user type. Type is text';
+comment on column user_type.is_active is 'Indicates whether the user type is active or not. Type is boolean and default is true';
+
+create table if not exists community
+(
+    id          uuid primary key default gen_random_uuid(),
+    name        varchar(255),
+    description text,
+    is_active   boolean default true
+);
+
+comment on table community is 'Stores community information';
+comment on column community.id is 'Unique identifier for the community. Type is uuid';
+comment on column community.name is 'Name of the community. Type is varchar(255)';
+comment on column community.description is 'Description of the community. Type is text';
+comment on column community.is_active is 'Indicates whether the community is active or not. Type is boolean and default is true';
+
+create table if not exists community_user
+(
+    id          uuid primary key default gen_random_uuid(),
+    community_id uuid,
+    user_id     uuid,
+    user_type_id uuid,
+    is_active   boolean default true,
+    foreign key (community_id) references community(id),
+    foreign key (user_id) references application_user(id),
+    foreign key (user_type_id) references user_type(id)
+);
+
+comment on table community_user is 'Stores community user information';
+comment on column community_user.id is 'Unique identifier for the community user. Type is uuid';
+comment on column community_user.community_id is 'Unique identifier for the community. Type is uuid. Foreign key to community.id';
+comment on column community_user.user_id is 'Unique identifier for the application user. Type is uuid. Foreign key to application_user.id';
+comment on column community_user.user_type_id is 'Unique identifier for the user type. Type is uuid. Foreign key to user_type.id';
+comment on column community_user.is_active is 'Indicates whether the community user is active or not. Type is boolean and default is true';
 
 create table if not exists venue
 (
@@ -186,32 +204,21 @@ comment on column event_room.event_id is 'Unique identifier for the event. Type 
 comment on column event_room.room_id is 'Unique identifier for the room. Type is uuid. Foreign key to room.id';
 comment on column event_room.is_active is 'Indicates whether the event room relation is active or not. Type is boolean and default is true';
 
-create table if not exists event_speaker
+create table if not exists event_participant
 (
     id         uuid primary key default gen_random_uuid(),
     event_id   uuid,
-    speaker_id uuid,
+    user_id uuid,
+    user_type uuid,
     is_active  boolean default true,
     foreign key (event_id) references event (id),
-    foreign key (speaker_id) references speaker (id)
+    foreign key (user_id) references application_user (id),
+    foreign key (user_type) references user_type (id)
 );
 
-comment on table event_speaker is 'Stores event-speaker information';
-comment on column event_speaker.id is 'Unique identifier for the event speaker relation. Type is uuid';
-comment on column event_speaker.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
-comment on column event_speaker.speaker_id is 'Unique identifier for the speaker. Type is uuid. Foreign key to speaker.id';
-
-create table if not exists event_guest
-(
-    id       uuid primary key default gen_random_uuid(),
-    event_id uuid,
-    guest_id uuid,
-    is_active boolean default true,
-    foreign key (event_id) references event (id),
-    foreign key (guest_id) references guest (id)
-);
-
-comment on table event_guest is 'Stores event-guest information';
-comment on column event_guest.id is 'Unique identifier for the event guest relation. Type is uuid';
-comment on column event_guest.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
-comment on column event_guest.guest_id is 'Unique identifier for the guest. Type is uuid. Foreign key to guest.id';
+comment on table event_participant is 'Stores event-participant information';
+comment on column event_participant.id is 'Unique identifier for the event participant relation. Type is uuid';
+comment on column event_participant.event_id is 'Unique identifier for the event. Type is uuid. Foreign key to event.id';
+comment on column event_participant.user_id is 'Unique identifier for the application user. Type is uuid. Foreign key to application_user.id';
+comment on column event_participant.user_type is 'Unique identifier for the user type. Type is uuid. Foreign key to user_type.id';
+comment on column event_participant.is_active is 'Indicates whether the event participant relation is active or not. Type is boolean and default is true';
