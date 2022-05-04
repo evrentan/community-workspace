@@ -14,4 +14,6 @@ import java.util.UUID;
  */
 @Repository
 public interface UserTypeRepository extends JpaRepository<UserTypeEntity, UUID> {
+
+  boolean existsDistinctByCode(String code);
 }

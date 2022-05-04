@@ -122,7 +122,7 @@ public class RoomController {
   }
 
   /**
-   * REST end-point in order to delete a specific room object by room ID.
+   * REST end-point in order to update a specific room object status by room ID.
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *
    * @param id is the room id that is going to be deleted.

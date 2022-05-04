@@ -67,5 +67,5 @@ public class UserTypeEntity {
    */
   @Basic
   @Column(name = "is_active")
-  private boolean isActive;
+  private boolean active;
 }

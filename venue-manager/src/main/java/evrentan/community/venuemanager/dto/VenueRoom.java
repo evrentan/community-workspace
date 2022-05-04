@@ -51,5 +51,6 @@ public class VenueRoom {
    * @since 1.0.0
    */
   @Schema(description = "Indicates whether the venue room association is active or not")
-  private boolean active;
+  @Builder.Default
+  private boolean active = true;
 }

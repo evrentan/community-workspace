@@ -54,5 +54,6 @@ public class UserType {
    * @since 1.0.0
    */
   @Schema(description = "Indicates if the user type is active or not.")
-  private boolean isActive;
+  @Builder.Default
+  private boolean active = true;
 }
