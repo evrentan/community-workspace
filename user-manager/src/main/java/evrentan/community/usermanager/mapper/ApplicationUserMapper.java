@@ -38,7 +38,7 @@ public class ApplicationUserMapper {
         .linkedInAccount(applicationUser.getLinkedInAccount())
         .githubAccount(applicationUser.getGithubAccount())
         .websiteUrl(applicationUser.getWebsiteUrl())
-        .isActive(applicationUser.isActive())
+        .active(applicationUser.isActive())
         .build();
   }
 
@@ -62,7 +62,7 @@ public class ApplicationUserMapper {
         .linkedInAccount(applicationUserEntity.getLinkedInAccount())
         .githubAccount(applicationUserEntity.getGithubAccount())
         .websiteUrl(applicationUserEntity.getWebsiteUrl())
-        .isActive(applicationUserEntity.isActive())
+        .active(applicationUserEntity.isActive())
         .build();
   }
 

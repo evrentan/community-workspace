@@ -85,5 +85,6 @@ public class ApplicationUser {
    * @since 1.0.0
    */
   @Schema(description = "Indicates if the application user is active or not.")
-  private boolean isActive;
+  @Builder.Default
+  private boolean active = true;
 }

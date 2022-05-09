@@ -7,7 +7,7 @@ create table if not exists application_user
     linkedin_account varchar(255),
     github_account   varchar(255),
     website_url      varchar(255),
-    is_active        boolean          default true
+    is_active        boolean default true
 );
 
 comment on table application_user is 'Stores application user information';

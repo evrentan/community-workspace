@@ -34,7 +34,7 @@ public class UserTypeMapper {
         .id(userType.getId())
         .code(userType.getCode())
         .description(userType.getDescription())
-        .isActive(userType.isActive())
+        .active(userType.isActive())
         .build();
   }
 
@@ -54,7 +54,7 @@ public class UserTypeMapper {
         .id(userTypeEntity.getId())
         .code(userTypeEntity.getCode())
         .description(userTypeEntity.getDescription())
-        .isActive(userTypeEntity.isActive())
+        .active(userTypeEntity.isActive())
         .build();
   }
 

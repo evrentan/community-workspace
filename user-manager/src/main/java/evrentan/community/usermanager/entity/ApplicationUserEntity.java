@@ -108,5 +108,5 @@ public class ApplicationUserEntity {
    */
   @Basic
   @Column(name = "is_active")
-  private boolean isActive;
+  private boolean active;
 }

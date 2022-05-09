@@ -71,7 +71,7 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
    */
   @Override
   public Room getRoom(UUID id) {
-    return RoomMapper.toDto(this.roomRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Room not found")));
+    return RoomMapper.toDto(this.roomRepository.findById(id).orElseThrow(() -> new NoSuchElementException(ROOM_NOT_FOUND)));
   }
 
   /**
@@ -90,7 +90,7 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
       throw new IllegalArgumentException("Ids do not match");
 
     if (!this.roomRepository.existsById(id))
-      throw new NoSuchElementException("Room not found");
+      throw new NoSuchElementException(ROOM_NOT_FOUND);
 
     return RoomMapper.toDto(this.roomRepository.save(RoomMapper.toEntity(room)));
   }
@@ -106,7 +106,7 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
    */
   @Override
   public void updateRoomStatus(UUID id, boolean status) {
-    RoomEntity roomEntity = this.roomRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Room not found"));
+    RoomEntity roomEntity = this.roomRepository.findById(id).orElseThrow(() -> new NoSuchElementException(ROOM_NOT_FOUND));
     roomEntity.setActive(status);
     this.roomRepository.save(roomEntity);
 
