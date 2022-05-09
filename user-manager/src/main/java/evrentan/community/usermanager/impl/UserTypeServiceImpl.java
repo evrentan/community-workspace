@@ -24,6 +24,7 @@ public class UserTypeServiceImpl implements UserTypeService {
 
   private static final String USER_TYPE_NOT_FOUND = "User Type does not exist !!!";
   private static final String USER_TYPE_ALREADY_EXIST = "User Type already exists !!!";
+  private static final String ID_NOT_MATCH = "Id does not match !!!";
 
   private final UserTypeRepository userTypeRepository;
 
@@ -88,7 +89,7 @@ public class UserTypeServiceImpl implements UserTypeService {
   @Override
   public UserType updateUserType(UUID id, UserType userType) {
     if (!Objects.equals(id, userType.getId()))
-      throw new IllegalArgumentException("Ids do not match");
+      throw new IllegalArgumentException(ID_NOT_MATCH);
 
     if (!this.userTypeRepository.existsById(id))
       throw new NoSuchElementException(USER_TYPE_NOT_FOUND);

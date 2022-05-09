@@ -76,11 +76,11 @@ public class UserTypeController {
   }
 
   /**
-   * REST end-point in order to retrieve a specific user type object by user type ID.
+   * REST end-point in order to retrieve a specific user type object by user type id.
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *
    * @param id is the user type id that is going to be retrieved.
-   * @return User Type Object within ResponseEntity. Please, see the {@link UserType} class for details.
+   * @return UserType Object within ResponseEntity. Please, see the {@link UserType} class for details.
    *
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
    * @since 1.0.0
@@ -98,7 +98,7 @@ public class UserTypeController {
   }
 
   /**
-   * REST end-point in order to update a specific user type object by user type ID.
+   * REST end-point in order to update a specific user type object by user type id.
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *
    * @param id is the user type id that is going to be updated.
@@ -121,10 +121,10 @@ public class UserTypeController {
   }
 
   /**
-   * REST end-point in order to update a specific user type object status by user type ID.
+   * REST end-point in order to update a specific user type object status by user type id.
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *
-   * @param id is the user type id that is going to be deleted.
+   * @param id is the user type id that is going to be updated.
    * @return UserType Object within ResponseEntity. Please, see the {@link UserType} class for details.
    *
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
