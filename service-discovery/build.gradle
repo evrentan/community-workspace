@@ -8,6 +8,10 @@ group = 'evrentan.community'
 version = '1.0.0'
 sourceCompatibility = '17'
 
+springBoot {
+    buildInfo()
+}
+
 repositories {
     mavenCentral()
 }
