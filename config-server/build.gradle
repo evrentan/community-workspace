@@ -1,11 +1,11 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.6'
+    id 'org.springframework.boot' version '2.7.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
 group = 'evrentan.community'
-version = '1.0.0'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 springBoot {
@@ -14,17 +14,18 @@ springBoot {
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
 }
 
 ext {
-    set('springCloudVersion', "2021.0.1")
+    set('springCloudVersion', "2021.0.3-SNAPSHOT")
 }
 
 dependencies {
-    //implementation 'org.springframework.cloud:spring-cloud-starter-config'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
-    implementation 'org.springframework.cloud:spring-cloud-config-client'
-    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+    implementation 'org.springframework.cloud:spring-cloud-config-server'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

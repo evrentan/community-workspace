@@ -75,7 +75,7 @@ Application can be run in Docker. [Dockerfile](Dockerfile) in the project root f
 ```shell
 gradle build
 docker build -t db-migration-manager:1.0.0 .
-docker run -p 8081:8081 --name CommunityDBMigrationManagerService db-migration-manager:1.0.0
+docker run -p 8071:8071 --name CommunityDBMigrationManagerService db-migration-manager:1.0.0
 ```
 
 ## Run Actuator
