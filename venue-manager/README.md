@@ -75,7 +75,7 @@ Application can be run in Docker. [Dockerfile](Dockerfile) in the project root f
 ```shell
 gradle build
 docker build -t venue-manager:1.0.0 .
-docker run -p 8081:8081 --name CommunityVenueManagerService venue-manager:1.0.0
+docker run -p 8101:8101 --name CommunityVenueManagerService venue-manager:1.0.0
 ```
 
 ## Run Actuator

@@ -1,7 +1,7 @@
-# User Manager Service
-A User Manager Service within the Community Workspace for Small Communities with Spring Boot 2.6.6, JDK 17, Gradle & Flyway Migration.
+# Config Server
+A Config Server within the Community Workspace for Small Communities with Spring Boot 2.6.6, JDK 17, Gradle & Spring Cloud Config Server.
  
-Service boots from 8091 port & Actuator Management is served from 8092 port.
+Service boots from 8888 port & Actuator Management is served from 8889 port.
 
 ## Table of Contents
 
@@ -35,9 +35,8 @@ For building and running the application belows are required;
 - [Spring Boot 2.6.6][spring-boot-version]
 - [JDK 17][java-version]
 - [Gradle 7.3 or above][gradle-version]
-- [PostgreSQL][postgresql-version]
+- [Spring Cloud Config Server][spring-cloud-config-server]
 - Eureka Client
-- Spring Cloud Config Server
 - Spring Boot Actuator
 
 ## Coding Standards
@@ -59,7 +58,7 @@ Below version control standards should be followed within the project;
 
 ## Running the application locally
 
-Application can be run with [UserManagerApplication][user-manager-main-class] class.
+Application can be run with [ConfigServerApplication][config-server-main-class] class.
 
 Alternatively you can use the [Spring Boot Gradle plugin][spring-boot-gradle-plugin] like so:
 
@@ -74,8 +73,8 @@ Application can be run in Docker. [Dockerfile](Dockerfile) in the project root f
 
 ```shell
 gradle build
-docker build -t user-manager:1.0.0 .
-docker run -p 8091:8091 --name CommunityUserManagerService user-manager:1.0.0
+docker build -t config-server:1.0.0 .
+docker run -p 8888:8888 --name ConfigServerService config-server:1.0.0
 ```
 
 ## Run Actuator
@@ -98,10 +97,10 @@ Please check the [LICENSE](LICENSE) file for more details.
 [spring-boot-version]: https://spring.io/blog/2022/03/31/spring-boot-2-6-6-available-now
 [java-version]: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 [gradle-version]: https://gradle.org/releases/
-[postgresql-version]: https://www.postgresql.org/
+[spring-cloud-config-server]: https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html
 [contributor]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [community-workspace-github]: https://github.com/evrentan/community-workspace
-[user-manager-main-class]: src/main/java/evrentan/community/usermanager/spring/spring/UserManagerApplication.java
+[config-server-main-class]: src/main/java/evrentan/community/configserver/spring/spring/ConfigServerApplication.java
 [spring-boot-gradle-plugin]: https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/
 [spring-boot-actuator]: https://spring.io/guides/gs/actuator-service/
-[local-actuator]: http://localhost:8082/actuator
+[local-actuator]: http://localhost:8889/actuator
