@@ -1,7 +1,7 @@
 # Venue Manager Service
 A Venue Manager Service within the Community Workspace for Small Communities with Spring Boot 2.6.6, JDK 17, Gradle & Flyway Migration.
  
-Service boots from 8101 port & Actuator Management is served from 8102 port.
+Service boots from 8101 port & Actuator Management is served from 8101 port with /actuator base path.
 
 ## Table of Contents
 
@@ -104,4 +104,4 @@ Please check the [LICENSE](LICENSE) file for more details.
 [venue-manager-main-class]: src/main/java/evrentan/community/venuemanager/spring/spring/VenueManagerApplication.java
 [spring-boot-gradle-plugin]: https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/
 [spring-boot-actuator]: https://spring.io/guides/gs/actuator-service/
-[local-actuator]: http://localhost:8082/actuator
+[local-actuator]: http://localhost:8101/actuator
