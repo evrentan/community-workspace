@@ -1,7 +1,7 @@
 # Community Manager Service
 A Community Manager Service within the Community Workspace for Small Communities with Spring Boot 2.6.6, JDK 17 & Gradle.
  
-Service boots from 8081 port & Actuator Management is served from 8082 port.
+Service boots from 8081 port & Actuator Management is served from 8081 port with /actuator base path.
 
 ## Table of Contents
 
@@ -102,4 +102,4 @@ Please check the [LICENSE](LICENSE) file for more details.
 [community-manager-main-class]: src/main/java/evrentan/community/communitymanager/spring/spring/CommunityManagerApplication.java
 [spring-boot-gradle-plugin]: https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/
 [spring-boot-actuator]: https://spring.io/guides/gs/actuator-service/
-[local-actuator]: http://localhost:8082/actuator
+[local-actuator]: http://localhost:8081/actuator
