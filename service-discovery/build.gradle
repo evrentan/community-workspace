@@ -26,6 +26,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-config-client'
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 }
 
 dependencyManagement {

@@ -41,6 +41,7 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
 }
 
 dependencyManagement {
