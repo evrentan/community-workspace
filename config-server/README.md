@@ -48,13 +48,7 @@ Below coding standards should be followed within the project;
 
 ## Version Control Standards
 
-Below version control standards should be followed within the project;
-
-- Feature enhancements or defect fixes should not be committed to main branches, they should be coded in feature or fix branches.
-- Issues should be created for each feature or fix in the [Community Workspace GitHub Repository Project][community-workspace-github].
-- Pull request (PR) should be created for each feature/fix branch to main branches.
-- While creating a PR "feature:", "fix:" or "doc:" prefix should be used to identify the PR type.
-- PRs should be linked with a valid issue in the [Community Workspace GitHub Repository Project][community-workspace-github].
+Version control standards should be followed within the project according to the [main README][main-readme-file-location] file.
 
 ## Running the application locally
 
@@ -104,3 +98,4 @@ Please check the [LICENSE](LICENSE) file for more details.
 [spring-boot-gradle-plugin]: https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/
 [spring-boot-actuator]: https://spring.io/guides/gs/actuator-service/
 [local-actuator]: http://localhost:8889/actuator
+[main-readme-file-location]: https://github.com/evrentan/community-workspace/blob/staging/README.md

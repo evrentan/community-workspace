@@ -11,7 +11,8 @@ Services are developed in the following modules:
 
 1. [How to Contribute](#how-to-contribute)
 2. [Requirements](#requirements)
-3. [Copyright](#copyright)
+3. [Version Control Standards](#version-control-standards)
+4. [Copyright](#copyright)
 
 ## How to Contribute
 
@@ -32,6 +33,18 @@ For building and running the application belows are required;
 - Spring Cloud Config Server
 - Spring Boot Actuator
 
+## Version Control Standards
+
+Below version control standards should be followed within the project;
+
+- The default branch is [staging branch][staging-branch-github-link].
+- Feature enhancements or defect fixes should not be committed to the default branch, they should be coded in feature or bug branches.
+- Issues should be created for each feature or fix in the [Community Workspace GitHub Repository Project][community-workspace-github].
+- Pull request (PR) should be created for each feature/bug branch to [staging branch][staging-branch-github-link].
+- While creating a PR "[Feature]: ", "[Bug]: " or "[Doc]: " prefix should be used to identify the PR type.
+- PRs should be linked with a valid issue in the [Community Workspace GitHub Repository Project][community-workspace-github].
+- If validations are passed in the [staging branch][staging-branch-github-link], then a PR is created with "merge branch" label to the [main branch][main-branch-github-link].
+
 ## Copyright
 
 GNU General Public License v3.0
@@ -44,3 +57,6 @@ Please check the [LICENSE](LICENSE) file for more details.
 [postgresql-version]: https://www.postgresql.org/
 [flyway-migration]: https://flywaydb.org/documentation/
 [contributor]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+[community-workspace-github]: https://github.com/evrentan/community-workspace
+[staging-branch-github-link]: https://github.com/evrentan/community-workspace/tree/staging
+[main-branch-github-link]: https://github.com/evrentan/community-workspace/tree/main
