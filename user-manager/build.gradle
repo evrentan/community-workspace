@@ -38,6 +38,7 @@ dependencies {
     compileOnly 'org.springframework.boot:spring-boot-starter-jdbc'
     //compileOnly 'org.flywaydb:flyway-core'
     compileOnly 'org.projectlombok:lombok'
+    implementation 'org.flywaydb:flyway-core'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
