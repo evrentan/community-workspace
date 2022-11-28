@@ -61,6 +61,8 @@ gradle clean build
 gradle bootRun
 ```
 
+Local & development configuration properties are stored under [Service Discovery Configuration Properties][service-discovery-configuration-properties]. For example, you can update your discovery server information from the related file.
+
 ## Running the Application in Docker
 
 Application can be run in Docker. [Dockerfile](Dockerfile) in the project root folder is the configuration file for Docker build.
@@ -97,3 +99,4 @@ Permissions of this strong copyleft license are conditioned on making available 
 [spring-boot-actuator]: https://spring.io/guides/gs/actuator-service/
 [local-actuator]: http://localhost:6970/actuator
 [main-readme-file-location]: https://github.com/evrentan/community-workspace/blob/staging/README.md
+[service-discovery-configuration-properties]: ../config-server-data/service-discovery

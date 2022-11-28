@@ -72,6 +72,8 @@ docker build -t venue-manager:1.0.0 .
 docker run -p 8101:8101 --name CommunityVenueManagerService venue-manager:1.0.0
 ```
 
+Local & development configuration properties are stored under [Venue Manager Configuration Properties][venue-manager-configuration-properties]. For example, you can update your database information from the related file.
+
 ## Run Actuator
 
 [Spring Boot Actuator][spring-boot-actuator] can be reached from [local url for Actuator][local-actuator].
@@ -100,3 +102,4 @@ Please check the [LICENSE](LICENSE) file for more details.
 [spring-boot-actuator]: https://spring.io/guides/gs/actuator-service/
 [local-actuator]: http://localhost:8101/actuator
 [main-readme-file-location]: https://github.com/evrentan/community-workspace/blob/staging/README.md
+[venue-manager-configuration-properties]: ../config-server-data/venue-manager
