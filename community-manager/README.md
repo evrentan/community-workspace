@@ -61,6 +61,8 @@ gradle clean build
 gradle bootRun
 ```
 
+Local & development configuration properties are stored under [Community Manager Configuration Properties][community-manager-configuration-properties]. For example, you can update your database information from the related file.
+
 ## Running the Application in Docker
 
 Application can be run in Docker. [Dockerfile](Dockerfile) in the project root folder is the configuration file for Docker build.
@@ -98,3 +100,4 @@ Please check the [LICENSE](LICENSE) file for more details.
 [spring-boot-actuator]: https://spring.io/guides/gs/actuator-service/
 [local-actuator]: http://localhost:8081/actuator
 [main-readme-file-location]: https://github.com/evrentan/community-workspace/blob/staging/README.md
+[community-manager-configuration-properties]: ../config-server-data/community-manager
