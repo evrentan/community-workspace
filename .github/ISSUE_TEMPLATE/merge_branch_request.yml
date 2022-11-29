@@ -1,0 +1,32 @@
+name: Merge Branch Request
+description: Merge Branch Request
+title: "[Merge Branch]: "
+labels: ["merge branch"]
+assignees:
+  - evrentan
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please state the origin branch & target branch for this merge request ‼️
+  - type: dropdown
+    id: originBranch
+    attributes:
+      label: Origin Branch
+      description: What is the origin branch for the PR?
+      options:
+        - staging
+        - main
+      validations:
+        required: true
+  - type: dropdown
+    id: targetBranch
+    attributes:
+      label: Origin Branch
+      description: What is the target branch for the PR?
+      options:
+        - staging
+        - main (Default)
+      validations:
+        required: true
