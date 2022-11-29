@@ -18,8 +18,8 @@ body:
       options:
         - staging
         - main
-      validations:
-        required: true
+    validations:
+      required: true
   - type: dropdown
     id: targetBranch
     attributes:
@@ -28,5 +28,5 @@ body:
       options:
         - staging
         - main (Default)
-      validations:
-        required: true
+    validations:
+      required: true
