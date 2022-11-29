@@ -27,6 +27,6 @@ body:
       description: What is the target branch for the PR?
       options:
         - staging
-        - main (Default)
+        - main
     validations:
       required: true
