@@ -20,6 +20,10 @@ For the contributor covenant to this project, please check the Code of Conduct f
 
 [![Contributor Covenant][contributor]](CODE_OF_CONDUCT.md)
 
+### Credits
+
+Please check the [Contributors List](CONTRIBUTORS.md) to see who makes this open-source alive.
+
 ## Requirements
 
 For building and running the application belows are required;
