@@ -8,4 +8,4 @@ Below you can find the names of the contributors to this project;
 
 
 [evren-tan-github]: https://github.com/evrentan
-[onur-aktas-github]:https://github.com/Onuraktasj
+[onur-aktas-github]: https://github.com/Onuraktasj
