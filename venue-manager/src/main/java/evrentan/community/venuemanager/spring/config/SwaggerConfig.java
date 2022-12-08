@@ -29,7 +29,7 @@ public class SwaggerConfig {
   public OpenAPI swaggerDocumentation() {
     Contact contact = new Contact();
     contact.setName("Evren Tan");
-    contact.setEmail("info@evrentan.com");
+    contact.setEmail("hi@evrentan.com");
     contact.setUrl("https://evrentan.com");
     return new OpenAPI()
         .info(new Info().title("Swagger UI")
