@@ -36,7 +36,7 @@ public class SwaggerConfig {
             .description("Venue Manager Swagger UI")
             .version("1.0.0")
             .contact(contact)
-            .license(new License().name("Apache 2.0").url("http://springdoc.org")))
+            .license(new License().name("Apache 2.0").url("https://springdoc.org")))
         .externalDocs(new ExternalDocumentation()
             .description("Venue Manager Swagger UI"));
   }
