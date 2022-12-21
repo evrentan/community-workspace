@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @Import(value = {CommonConfig.class,
-    ServiceDiscoveryClientConfig.class,
     SwaggerConfig.class,
     TransactionManagementConfig.class,
     WebConfig.class})
