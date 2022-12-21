@@ -32,9 +32,9 @@ Below you can find the names of the contributors to this project;
 
 For building and running the application belows are required;
 
-- [Spring Boot 2.6.6][spring-boot-version]
+- [Spring Boot 3.0.0][spring-boot-version]
 - [JDK 17][java-version]
-- [Gradle 7.3 or above][gradle-version]
+- [Gradle 7.6 or above][gradle-version]
 - Eureka Server
 - Spring Cloud Config Server
 - Spring Boot Actuator
@@ -89,7 +89,7 @@ GNU General Public License v3.0
 Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 
 [evren-tan-github]: https://github.com/evrentan
-[spring-boot-version]: https://spring.io/blog/2022/03/31/spring-boot-2-6-6-available-now
+[spring-boot-version]: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Release-Notes
 [java-version]: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 [gradle-version]: https://gradle.org/releases/
 [contributor]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg

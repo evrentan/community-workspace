@@ -28,9 +28,9 @@ Please check the [Contributors List](CONTRIBUTORS.md) to see who makes this open
 
 For building and running the application belows are required;
 
-- [Spring Boot 2.6.6][spring-boot-version]
+- [Spring Boot 3.0.0][spring-boot-version]
 - [JDK 17][java-version]
-- [Gradle 7.3 or above][gradle-version]
+- [Gradle 7.6 or above][gradle-version]
 - [PostgreSQL][postgresql-version]
 - [Flyway Migration][flyway-migration]
 - Eureka Client
@@ -55,7 +55,7 @@ GNU General Public License v3.0
 Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 Please check the [LICENSE](LICENSE) file for more details.
 
-[spring-boot-version]: https://spring.io/blog/2022/03/31/spring-boot-2-6-6-available-now
+[spring-boot-version]: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Release-Notes
 [java-version]: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 [gradle-version]: https://gradle.org/releases/
 [postgresql-version]: https://www.postgresql.org/
