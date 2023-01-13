@@ -74,7 +74,7 @@ create table if not exists event_participant
     id         uuid primary key default gen_random_uuid(),
     event_id   uuid,
     user_id uuid,
-    user_type uuid,
+    user_type_id uuid,
     is_active  boolean default true,
     foreign key (event_id) references event (id)
 );
