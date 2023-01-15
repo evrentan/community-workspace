@@ -10,11 +10,12 @@ Service boots from 8091 port & Actuator Management is served from 8091 port with
 3. [Requirements](#requirements)
 4. [Coding Standards](#coding-standards)
 5. [Version Control Standards](#version-control-standards)
-6. [Running the Application Locally](#running-the-application-locally)
-7. [Running the Application in Docker](#running-the-application-in-docker)
-8. [Run Actuator](#run-actuator)
-9. [Extra Notes](#extra-notes)
-10. [Copyright](#copyright)
+6. [Database](#database)
+7. [Running the Application Locally](#running-the-application-locally)
+8. [Running the Application in Docker](#running-the-application-in-docker)
+9. [Run Actuator](#run-actuator)
+10. [Extra Notes](#extra-notes)
+11. [Copyright](#copyright)
 
 ## How to Contribute
 
@@ -50,6 +51,12 @@ Below coding standards should be followed within the project;
 ## Version Control Standards
 
 Version control standards should be followed within the project according to the [main README][main-readme-file-location] file.
+
+## Database
+
+Please check the [Create DB and Schema Scripts][create-db-and-schema-scripts] file. After creating the DB & schema, all DDLs & DMLs will be executed with Flyway DB Migration functionality.
+
+So, these DDLs & DMLs should be stored within [Flyway DB Migration Resource folder][flyway-db-migration-resource-folder].
 
 ## Running the application locally
 
@@ -103,3 +110,5 @@ Please check the [LICENSE](LICENSE) file for more details.
 [local-actuator]: http://localhost:8091/actuator
 [main-readme-file-location]: https://github.com/evrentan/community-workspace/blob/staging/README.md
 [user-manager-configuration-properties]: ../config-server-data/user-manager
+[create-db-and-schema-scripts]: CREATE_DB_AND_SCHEMA_SCRIPTS.md
+[flyway-db-migration-resource-folder]: src/main/resources/db/migration
