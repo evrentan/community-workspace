@@ -1,4 +1,4 @@
-package evrentan.community.eventmanager.spring.exception;
+package evrentan.community.eventmanager.exception;
 
 
 import jakarta.servlet.http.HttpServletRequest;
