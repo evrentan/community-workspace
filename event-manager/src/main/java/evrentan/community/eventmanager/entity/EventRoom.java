@@ -37,6 +37,19 @@ public class EventRoom {
     @Column(name = "id")
     private UUID id;
 
+    /**
+     * Event ID in UUID Type
+     *
+     * @since 1.0.0
+     */
+    @Column(name = "event_id")
+    private UUID eventId;
+
+    /**
+     * Room ID in UUID Type
+     *
+     * @since 1.0.0
+     */
     @Basic
     @Column(name = "room_id")
     private UUID roomId;
@@ -51,7 +64,6 @@ public class EventRoom {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @OneToOne
-    private EventEntity eventId;
+
 
 }

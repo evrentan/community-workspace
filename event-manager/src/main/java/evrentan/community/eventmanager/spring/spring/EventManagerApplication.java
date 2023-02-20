@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 
-//@SpringBootApplication(scanBasePackages="evrentan.community.eventmanager.spring")
 @SpringBootApplication
 @Import(value = {CommonConfig.class,
     SwaggerConfig.class,

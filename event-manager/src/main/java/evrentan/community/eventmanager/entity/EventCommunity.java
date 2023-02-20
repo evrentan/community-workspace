@@ -39,8 +39,21 @@ public class EventCommunity {
     @Column(name = "id")
     private UUID id;
 
+    /**
+     * Community ID in UUID Type
+     *
+     * @since 1.0.0
+     */
     @Column(name = "community_id")
     private UUID communityId;
+
+    /**
+     * Event ID in UUID Type.
+     *
+     * @since 1.0.0
+     */
+    @Column(name = "event_id")
+    private UUID eventId;
 
     /**
      * Indicates whether the event community is active or not.
@@ -52,7 +65,5 @@ public class EventCommunity {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @ManyToMany
-    @JoinColumn(name = "event_id")
-    private List<EventEntity> eventList;
+
 }

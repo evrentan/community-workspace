@@ -33,7 +33,7 @@ public class EventCommunityDto {
      *
      * @since 1.0.0
      */
-    @Schema(description = "")
+    @Schema(description = "Community ID in UUID Type")
     private UUID communityId;
 
     /**

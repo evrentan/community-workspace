@@ -23,12 +23,23 @@ import java.util.UUID;
 @Schema(description = "Event Room Class")
 public class EventRoomDto {
 
-    @Schema()
+    /**
+     * Event Room ID in UUID Type.
+     *
+     * @since 1.0.0
+     */
+    @Schema(description = "Event Room ID in UUID Type")
     private UUID id;
+
 
     @Schema
     private UUID roomId;
 
+    /**
+     * Indicates if the event room is active or not.
+     *
+     * @since 1.0.0
+     */
     @Schema
     private boolean isActive;
 }

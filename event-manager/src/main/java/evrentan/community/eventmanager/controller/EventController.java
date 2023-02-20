@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 
 /**
- * REST Controller for community related API end-points.
+ * REST Controller for event related API end-points.
  *
  * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
  * @since 1.0.0
@@ -44,15 +44,15 @@ public class EventController {
      * @since 1.0.0
      */
     @PostMapping
-    @Operation(summary = "Creat a Event")
+    @Operation(summary = "Creat an Event")
     @ApiResponses(value = {
-            @ApiResponse(responseCode  = "200", description  = "Successfully Community Created"),
+            @ApiResponse(responseCode  = "200", description  = "Successfully Event Created"),
             @ApiResponse(responseCode  = "400", description  = "Bad Request"),
             @ApiResponse(responseCode  = "404", description  = "Not Found"),
             @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
     })
     public ResponseEntity<EventDto> createEvent(@RequestBody @NotNull EventDto eventDto){
         final EventDto eventCreated = this.eventService.createEvent(eventDto);
-        return ResponseEntity.created(URI.create(eventCreated.getId().toString())).body(eventCreated);
+        return ResponseEntity.created(URI.create(this.eventService.createEvent(eventDto).getId().toString())).body(eventCreated);
     }
 }

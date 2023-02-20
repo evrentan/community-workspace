@@ -52,7 +52,6 @@ public class EventDto {
      * @since 1.0.0
      */
     @Schema(description = "Indicates if the event is active or not." )
-    //@Builder.Default
     private boolean isActive;
 
     /**
@@ -69,7 +68,6 @@ public class EventDto {
      * @since 1.0.0
      */
     @Schema(description = "Indicates if the event is online or not.")
-    //@Builder.Default
     private boolean isOnline;
 
     /**
@@ -80,8 +78,12 @@ public class EventDto {
     @Schema(description = "Event URL in String Type")
     private String url;
 
+    /**
+     * Indicates if the event is Free or not.
+     *
+     * @since 1.0.0
+     */
     @Schema(description = "Indicates if the event is free or not.")
-    //@Builder.Default
     private boolean isFree;
 
     /**

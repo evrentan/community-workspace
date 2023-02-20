@@ -39,6 +39,22 @@ public class EventVenue {
     private UUID id;
 
     /**
+     * Venue ID in UUID Type
+     *
+     * @since 1.0.0
+     */
+    @Column(name = "event_id")
+    private UUID eventId;
+
+    /**
+     * Venue ID in UUID Type
+     *
+     * @since 1.0.0
+     */
+    @Column(name = "venue_id")
+    private UUID venueId;
+
+    /**
      * Indicates whether the event venue is active or not.
      * It is equalized to the is_active column in the database.
      *
@@ -48,7 +64,6 @@ public class EventVenue {
     @Column(name = "venue_id")
     private boolean isActive;
 
-    @OneToOne
-    private EventEntity evenId;
+
 
 }

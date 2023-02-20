@@ -39,8 +39,31 @@ public class EventParticipant {
     private UUID id;
 
     /**
-     * Indicates whether the participant is active or not.
-     * It is equalized to the is_active column in the database.
+     * Event ID in UUID Type.
+     *
+     * @since 1.0.0
+     */
+    @Column(name = "event_id")
+    private UUID eventId;
+
+    /**
+     * User ID in UUID Type.
+     *
+     * @since 1.0.0
+     */
+    @Column(name = "user_id")
+    private UUID userId;
+
+    /**
+     * User Type ID in UUID Type.
+     *
+     * @since 1.0.0
+     */
+    @Column(name = "user_type_id")
+    private UUID userTypeId;
+
+    /**
+     * Indicates if the event is active or not.
      *
      * @since 1.0.0
      */
@@ -48,8 +71,6 @@ public class EventParticipant {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @ManyToMany
-    private List<EventEntity> entityList;
 
 
 
