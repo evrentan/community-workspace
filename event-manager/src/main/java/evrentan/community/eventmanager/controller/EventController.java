@@ -7,13 +7,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.net.URI;
+import java.util.UUID;
 
 /**
  * REST Controller for event related API end-points.
@@ -54,5 +52,27 @@ public class EventController {
     public ResponseEntity<EventDto> createEvent(@RequestBody @NotNull EventDto eventDto){
         final EventDto eventCreated = this.eventService.createEvent(eventDto);
         return ResponseEntity.created(URI.create(this.eventService.createEvent(eventDto).getId().toString())).body(eventCreated);
+    }
+
+    /**
+     * REST end-point in order to delete a specific event object by event ID.
+     * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
+     *
+     * @param id is the event id that is going to be deleted.
+     * @return EventDto Object within ResponseEntity. Please, see the {@link EventDto} class for details.
+     *
+     * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+     * @since 1.0.0
+     */
+    @PatchMapping(value = "/updateEventStatus")
+    @Operation(summary = "Update a Event Status by Id & Status value")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode  = "200", description  = "Successfully Update the Related Event Status"),
+            @ApiResponse(responseCode  = "400", description  = "Bad Request"),
+            @ApiResponse(responseCode  = "404", description  = "Not Found"),
+            @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
+    })
+    public ResponseEntity<EventDto> updateEventStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull EventDto eventDto){
+        return ResponseEntity.ok(this.eventService.updateEventStatus(id,eventDto.isActive()));
     }
 }
