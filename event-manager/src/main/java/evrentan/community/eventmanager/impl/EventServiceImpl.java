@@ -27,7 +27,7 @@ public class EventServiceImpl implements EventService {
     }
 
     /**
-     * Create a community instance in the database
+     * Create an event instance in the database
      *
      * @param eventDto event to be created. Please, see the {@link EventDto} class for details.
      * @return EventDto which is created. Please, see the {@link EventDto} class for details.
