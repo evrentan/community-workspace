@@ -2,6 +2,8 @@ package evrentan.community.eventmanager.service;
 
 import evrentan.community.eventmanager.dto.EventDto;
 
+import java.util.UUID;
+
 /**
  * Event Service Interface Class
  *
@@ -20,5 +22,16 @@ public interface EventService {
      * @since 1.0.0
      */
     EventDto createEvent(EventDto eventDto);
+
+    /**
+     * Update an event status instance in the database
+     *
+     * @param id community id to be updated.
+     * @param status status of the community to be updated.
+     *
+     * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+     * @since 1.0.0
+     */
+    EventDto updateEventStatus(UUID id, boolean status);
 
 }
