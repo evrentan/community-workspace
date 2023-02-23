@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -74,5 +75,26 @@ public class EventController {
     })
     public ResponseEntity<EventDto> updateEventStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull EventDto eventDto){
         return ResponseEntity.ok(this.eventService.updateEventStatus(id,eventDto.isActive()));
+    }
+
+    /**
+     * REST end-point in order to get all events.
+     * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
+     *
+     * @return List of EventDto Object within ResponseEntity. Please, see the {@link EventDto} class for details.
+     *
+     * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+     * @since 1.0.0
+     */
+    @GetMapping
+    @Operation(summary = "Get All Events")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode  = "200", description  = "Successfully Get All Events"),
+            @ApiResponse(responseCode  = "400", description  = "Bad Request"),
+            @ApiResponse(responseCode  = "404", description  = "Not Found"),
+            @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
+    })
+    public ResponseEntity<List<EventDto>> getAllEvents(){
+        return ResponseEntity.ok(this.eventService.getAllEvents());
     }
 }

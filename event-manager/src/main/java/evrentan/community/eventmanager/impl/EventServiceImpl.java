@@ -7,6 +7,7 @@ import evrentan.community.eventmanager.repository.EventRepository;
 import evrentan.community.eventmanager.service.EventService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -55,5 +56,18 @@ public class EventServiceImpl implements EventService {
         eventEntity.setActive(status);
 
         return EventMapper.toDto(this.eventRepository.save(eventEntity));
+    }
+
+    /**
+     * Return all event instances in the database
+     *
+     * @return List<EventDto>. Please, see the {@link EventDto} class for details.
+     *
+     * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+     * @since 1.0.0
+     */
+    @Override
+    public List<EventDto> getAllEvents() {
+        return EventMapper.toDtoList(this.eventRepository.findAll());
     }
 }
