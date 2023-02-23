@@ -1,5 +1,5 @@
 # Community Manager Service
-A Community Manager Service within the Community Workspace for Small Communities with Spring Boot 2.6.6, JDK 17 & Gradle.
+A Community Manager Service within the Community Workspace for Small Communities with Spring Boot 3.0.0, JDK 17 & Gradle.
  
 Service boots from 8081 port & Actuator Management is served from 8081 port with /actuator base path.
 
