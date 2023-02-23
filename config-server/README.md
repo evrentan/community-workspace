@@ -1,5 +1,5 @@
 # Config Server
-A Config Server within the Community Workspace for Small Communities with Spring Boot 2.6.6, JDK 17, Gradle & Spring Cloud Config Server.
+A Config Server within the Community Workspace for Small Communities with Spring Boot 3.0.0, JDK 17, Gradle & Spring Cloud Config Server.
  
 Service boots from 8888 port & Actuator Management is served from 8889 port.
 
