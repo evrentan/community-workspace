@@ -1,5 +1,5 @@
 # API Gateway
-An API Gateway within the Community Workspace for Small Communities with Spring Boot 2.7.1, JDK 17, Gradle & Spring Cloud Config Server.
+An API Gateway within the Community Workspace for Small Communities with Spring Boot 3.0.0, JDK 17, Gradle & Spring Cloud Config Server.
 
 API Gateway is a service layer used to encapsulate internal services and to provide an Entry point to the ecosystem.
  
