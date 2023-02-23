@@ -97,4 +97,29 @@ public class EventController {
     public ResponseEntity<List<EventDto>> getAllEvents(){
         return ResponseEntity.ok(this.eventService.getAllEvents());
     }
+
+    /**
+     * REST end-point in order to retrieve a specific event object by event ID.
+     * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
+     *
+     * @param id is the event id that is going to be retrieved.
+     * @return EventDto Object within ResponseEntity. Please, see the {@link EventDto} class for details.
+     *
+     * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+     * @since 1.0.0
+     */
+    @GetMapping(value = "/{id}")
+    @Operation(summary = "Get an Event by Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode  = "200", description  = "Successfully Get the Related Community"),
+            @ApiResponse(responseCode  = "400", description  = "Bad Request"),
+            @ApiResponse(responseCode  = "404", description  = "Not Found"),
+            @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
+    })
+    public ResponseEntity<EventDto> getEvent(@PathVariable(value = "id") UUID id){
+        return ResponseEntity.ok(this.eventService.getEvent(id));
+    }
+
+
+
 }

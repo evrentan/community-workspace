@@ -70,4 +70,18 @@ public class EventServiceImpl implements EventService {
     public List<EventDto> getAllEvents() {
         return EventMapper.toDtoList(this.eventRepository.findAll());
     }
+
+    /**
+     * Return an event instance by using its id in the database
+     *
+     * @param id event id to be filtered
+     * @return EventDto. Please, see the {@link EventDto} class for details.
+     *
+     * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+     * @since 1.0.0
+     */
+    @Override
+    public EventDto getEvent(UUID id) {
+        return EventMapper.toDto(this.eventRepository.findById(id).orElseThrow(()-> new NoSuchElementException("Event Not Found")));
+    }
 }

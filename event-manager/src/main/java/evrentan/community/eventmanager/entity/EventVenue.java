@@ -51,7 +51,7 @@ public class EventVenue {
      *
      * @since 1.0.0
      */
-    @Column(name = "venue_id")
+    @Column(name = "venue_id", insertable = false, updatable = false)
     private UUID venueId;
 
     /**
