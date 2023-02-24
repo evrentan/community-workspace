@@ -2,6 +2,7 @@ package evrentan.community.eventmanager.service;
 
 import evrentan.community.eventmanager.dto.EventDto;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,10 +14,10 @@ import java.util.UUID;
 public interface EventService {
 
     /**
-     * Create a community instance in the database
+     * Create an event instance in the database
      *
-     * @param eventDto community to be created. Please, see the {@link EventDto} class for details.
-     * @return Community which is created. Please, see the {@link EventDto} class for details.
+     * @param eventDto event to be created. Please, see the {@link EventDto} class for details.
+     * @return EventDto which is created. Please, see the {@link EventDto} class for details.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
@@ -26,12 +27,21 @@ public interface EventService {
     /**
      * Update an event status instance in the database
      *
-     * @param id community id to be updated.
-     * @param status status of the community to be updated.
+     * @param id event id to be updated.
+     * @param status status of the event to be updated.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
     EventDto updateEventStatus(UUID id, boolean status);
 
+    /**
+     * Return all event instances in the database
+     *
+     * @return List<EventDto>. Please, see the {@link EventDto} class for details.
+     *
+     * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+     * @since 1.0.0
+     */
+    List<EventDto> getAllEvents();
 }
