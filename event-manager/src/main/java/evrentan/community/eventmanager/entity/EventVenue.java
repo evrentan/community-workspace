@@ -51,7 +51,7 @@ public class EventVenue {
      *
      * @since 1.0.0
      */
-    @Column(name = "venue_id", insertable = false, updatable = false)
+    @Column(name = "venue_id")
     private UUID venueId;
 
     /**
@@ -61,7 +61,7 @@ public class EventVenue {
      * @since 1.0.0
      */
     @Basic
-    @Column(name = "venue_id")
+    @Column(name = "is_active")
     private boolean isActive;
 
 
