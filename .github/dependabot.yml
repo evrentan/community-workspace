@@ -22,7 +22,7 @@ updates:
     schedule:
       interval: "weekly"
     assignees:
-      - "evrentan
+      - "evrentan"
     commit-message:
       prefix: "[Dependency Update - Maven]: "
     labels:
@@ -33,7 +33,7 @@ updates:
     schedule:
       interval: "weekly"
     assignees:
-      - "evrentan
+      - "evrentan"
     commit-message:
       prefix: "[Dependency Update - GitHub Action]: "
     labels:
