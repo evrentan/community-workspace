@@ -55,4 +55,16 @@ public interface EventService {
      * @since 1.0.0
      */
     EventDto getEvent(UUID id);
+
+    /**
+     * Update an event instance in the database
+     *
+     * @param id event id to be updated.
+     * @param eventDto event instance to be updated. Please, see the {@link EventDto} class for details.
+     * @return EventDto which is updated. Please, see the {@link EventDto} class for details.
+     *
+     * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+     * @since 1.0.0
+     */
+    EventDto updateEvent(UUID id, EventDto eventDto);
 }
