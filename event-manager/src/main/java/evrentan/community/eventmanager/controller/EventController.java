@@ -120,6 +120,29 @@ public class EventController {
         return ResponseEntity.ok(this.eventService.getEvent(id));
     }
 
+    /**
+     * REST end-point in order to update a specific event object by event ID.
+     * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
+     *
+     * @param id is the event id that is going to be updated.
+     * @param eventDto is the new object that is going to be updated within the existing one. Please, see the {@link EventDto} class for details.
+     * @return EventDto Object within ResponseEntity. Please, see the {@link EventDto} class for details.
+     *
+     * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+     * @since 1.0.0
+     */
+     @PutMapping(value = "/{id}")
+     @Operation(summary = "Update an Event by Id")
+     @ApiResponses(value = {
+             @ApiResponse(responseCode  = "200", description  = "Successfully Update the Related Community"),
+             @ApiResponse(responseCode  = "400", description  = "Bad Request"),
+             @ApiResponse(responseCode  = "404", description  = "Not Found"),
+             @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
+     })
+    public ResponseEntity<EventDto> updateEvent(@PathVariable(value = "id") UUID id, @RequestBody @NotNull EventDto eventDto){
+         return ResponseEntity.ok(this.eventService.updateEvent(id,eventDto));
+     }
+
 
 
 }

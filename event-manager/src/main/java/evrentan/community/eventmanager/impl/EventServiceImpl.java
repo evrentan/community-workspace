@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -83,5 +84,25 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventDto getEvent(UUID id) {
         return EventMapper.toDto(this.eventRepository.findById(id).orElseThrow(()-> new NoSuchElementException("Event Not Found")));
+    }
+
+    /**
+     * Update an event instance in the database
+     *
+     * @param id event id to be updated.
+     * @param eventDto event instance to be updated. Please, see the {@link EventDto} class for details.
+     * @return EventDto which is updated. Please, see the {@link EventDto} class for details.
+     *
+     * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+     * @since 1.0.0
+     */
+    @Override
+    public EventDto updateEvent(UUID id, EventDto eventDto) {
+        if(!Objects.equals(id,eventDto.getId()))
+            throw new IllegalArgumentException("Ids do not match");
+        if(!this.eventRepository.existsById(id))
+            throw new NoSuchElementException("Event not found");
+
+        return EventMapper.toDto(this.eventRepository.save(EventMapper.toEntity(eventDto)));
     }
 }
