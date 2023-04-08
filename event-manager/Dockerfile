@@ -1,0 +1,14 @@
+ARG APP_JAR=event-manager-1.0.0.jar
+FROM gradle:7-jdk17-alpine AS build
+COPY . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build -x test
+
+FROM openjdk:17-alpine
+LABEL maintainer="Evren Tan"
+ARG APP_JAR
+ENV APP_JAR_ENV=$APP_JAR
+EXPOSE 8833
+RUN mkdir /app
+COPY --from=build /home/gradle/src/build/libs/${APP_JAR_ENV} /app/${APP_JAR_ENV}
+ENTRYPOINT java -jar /app/${APP_JAR_ENV}
