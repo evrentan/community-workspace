@@ -6,10 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import(value = {CommonConfig.class,
-    WebConfig.class,
-    TransactionManagementConfig.class,
-    SwaggerConfig.class})
+@Import(
+        value = {
+                CommonConfig.class,
+                WebConfig.class,
+                TransactionManagementConfig.class,
+                SwaggerConfig.class,
+                FeignClientConfig.class
+        })
 public class CommunityManagerApplication {
 
   public static void main(String[] args) {

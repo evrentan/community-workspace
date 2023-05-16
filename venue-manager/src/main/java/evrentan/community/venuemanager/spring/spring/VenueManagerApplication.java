@@ -6,10 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import(value = {CommonConfig.class
-    , SwaggerConfig.class
-    , TransactionManagementConfig.class
-    , WebConfig.class})
+@Import(
+        value = {
+                CommonConfig.class,
+                SwaggerConfig.class,
+                TransactionManagementConfig.class,
+                WebConfig.class,
+                FeignClientConfig.class
+        })
 public class VenueManagerApplication {
 
   public static void main(String[] args) {
