@@ -47,6 +47,17 @@ public interface VenueService {
   Venue getVenue(UUID id);
 
   /**
+   * Return true if venue is active, otherwise false.
+   *
+   * @param id is the venue id that is going to be retrieved.
+   * @return Boolean. true if Venue is active, otherwise false.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  Boolean checkVenueStatusById(UUID id);
+
+  /**
    * Update a venue instance in the database
    *
    * @param id venue id to be updated.

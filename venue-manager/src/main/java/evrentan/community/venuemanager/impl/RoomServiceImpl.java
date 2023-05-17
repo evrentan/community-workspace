@@ -75,6 +75,24 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
   }
 
   /**
+   * Return true if room status is okay (room is active and room capacity is enough), otherwise false
+   *
+   * @param id is the room id that is going to be retrieved.
+   * @param participantLimit is the limit of the event.
+   * @return Boolean. true if room status is okay (room is active and room capacity is enough), otherwise false.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  @Override
+  public Boolean checkRoomStatusByIdAndCapacity(UUID id, Integer participantLimit) {
+
+    final Room room = RoomMapper.toDto(this.roomRepository.findById(id).orElse(null));
+
+    return Objects.nonNull(room) && room.isActive() && room.getCapacity() >= participantLimit;
+  }
+
+  /**
    * Update a room instance in the database
    *
    * @param id room id to be updated.

@@ -1,6 +1,7 @@
 package evrentan.community.eventmanager.entity;
 
 
+import evrentan.community.eventmanager.dto.entity.Event;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,8 +9,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
- * Community Entity Class represents the community table in the database.
- * It is represented by {@link evrentan.community.eventmanager.dto.EventDto} in DTO level.
+ * EventEntity Class represents the community table in the database.
+ * It is represented by {@link Event} in DTO level.
  *
  * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
  * @since 1.0.0

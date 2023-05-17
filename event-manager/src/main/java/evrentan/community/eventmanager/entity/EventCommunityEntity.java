@@ -1,15 +1,15 @@
 package evrentan.community.eventmanager.entity;
 
+import evrentan.community.eventmanager.dto.entity.EventCommunity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.UUID;
 
 
 /**
- * Event Community Class represents the event_community table in the database.
- * It is represented by {@link evrentan.community.eventmanager.dto.EventCommunityDto} in DTO level.
+ * EventCommunity Class represents the event_community table in the database.
+ * It is represented by {@link EventCommunity} in DTO level.
  *
  * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
  * @since 1.0.0
@@ -23,7 +23,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 @Builder
-public class EventCommunity {
+public class EventCommunityEntity {
     /**
      * Event Community ID in UUID Type.
      * It is equalized to the id column in the database.

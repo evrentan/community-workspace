@@ -1,7 +1,7 @@
 package evrentan.community.eventmanager.repository;
 
 
-import evrentan.community.eventmanager.entity.EventVenue;
+import evrentan.community.eventmanager.entity.EventVenueEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +14,5 @@ import java.util.UUID;
  * @since 1.0.0
  */
 @Repository
-public interface EventVenueRepository extends JpaRepository<EventVenue, UUID> {
+public interface EventVenueRepository extends JpaRepository<EventVenueEntity, UUID> {
 }

@@ -1,13 +1,14 @@
 package evrentan.community.eventmanager.entity;
 
+import evrentan.community.eventmanager.dto.entity.EventRoom;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
 
 /**
- * Event Room Class represents the event_community table in the database.
- * It is represented by {@link evrentan.community.eventmanager.dto.EventRoomDto} in DTO level.
+ * EventRoom Class represents the event_community table in the database.
+ * It is represented by {@link EventRoom} in DTO level.
  *
  * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
  * @since 1.0.0
@@ -21,7 +22,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 @Builder
-public class EventRoom {
+public class EventRoomEntity {
     /**
      * Event Room ID in UUID Type.
      * It is equalized to the id column in the database.

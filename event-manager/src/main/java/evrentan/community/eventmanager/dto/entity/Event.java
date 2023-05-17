@@ -1,5 +1,6 @@
-package evrentan.community.eventmanager.dto;
+package evrentan.community.eventmanager.dto.entity;
 
+import evrentan.community.eventmanager.entity.EventEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -7,8 +8,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
- * EventDto Class.
- * It is equalized to the {@link evrentan.community.eventmanager.entity.EventEntity} in entity level.
+ * Event Class.
+ * It is equalized to the {@link EventEntity} in entity level.
  *
  * @author <a href="https://github.com/evrentan">Evren Tan</a>
  * @since 1.0.0
@@ -20,7 +21,7 @@ import java.util.UUID;
 @EqualsAndHashCode @ToString
 @Builder
 @Schema(description = "Event Class")
-public class EventDto {
+public class Event {
 
     /**
      * Event ID in UUID Type.
@@ -31,19 +32,19 @@ public class EventDto {
     private UUID id;
 
     /**
-     * Event Name in String Type
+     * EventEntity Name in String Type
      *
      * @since 1.0.0
      */
-    @Schema(description = "Event Name is String Type")
+    @Schema(description = "EventEntity Name is String Type")
     private String name;
 
     /**
-     * Event Description in String Type
+     * EventEntity Description in String Type
      *
      * @since 1.0.0
      */
-    @Schema(description = "Event Description in String Type ")
+    @Schema(description = "EventEntity Description in String Type ")
     private String  description;
 
     /**
@@ -55,11 +56,11 @@ public class EventDto {
     private boolean isActive;
 
     /**
-     * Event Date in LocalDateTime Type
+     * EventEntity Date in LocalDateTime Type
      *
      * @since 1.0.0
      */
-    @Schema(description = "Event Date is LocalDateTime Type")
+    @Schema(description = "EventEntity Date is LocalDateTime Type")
     private LocalDateTime eventDate;
 
     /**
