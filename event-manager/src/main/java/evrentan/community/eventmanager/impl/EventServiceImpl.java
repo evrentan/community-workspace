@@ -1,11 +1,17 @@
 package evrentan.community.eventmanager.impl;
 
-import evrentan.community.eventmanager.dto.EventDto;
+import evrentan.community.eventmanager.dto.entity.Event;
+import evrentan.community.eventmanager.dto.request.CreateEventRequest;
+import evrentan.community.eventmanager.dto.response.CreateEventResponse;
 import evrentan.community.eventmanager.entity.EventEntity;
+import evrentan.community.eventmanager.mapper.CreateEventResponseMapper;
 import evrentan.community.eventmanager.mapper.EventMapper;
 import evrentan.community.eventmanager.repository.EventRepository;
 import evrentan.community.eventmanager.service.EventService;
+import evrentan.community.eventmanager.service.RoomService;
+import evrentan.community.eventmanager.service.VenueService;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -16,30 +22,49 @@ import java.util.UUID;
  * Event Service Implementation for Event Service Layer.
  *
  * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
+ * @author <a href="https://github.com/evrentan">Evren Tan</a>
  * @since 1.0.0
  */
 @Service
 public class EventServiceImpl implements EventService {
 
+    private static final String VENUE_NOT_AVAILABLE = "Venue is not available !!!";
+    private static final String ROOM_NOT_AVAILABLE = "Room is not available !!!";
+
 
     private final EventRepository eventRepository;
+    private final VenueService venueService;
+    private final RoomService roomService;
 
-    public EventServiceImpl (EventRepository eventRepository){
+    public EventServiceImpl (EventRepository eventRepository, VenueService venueService, RoomService roomService){
         this.eventRepository = eventRepository;
+        this.venueService = venueService;
+        this.roomService = roomService;
     }
 
     /**
      * Create an event instance in the database
      *
-     * @param eventDto event to be created. Please, see the {@link EventDto} class for details.
-     * @return EventDto which is created. Please, see the {@link EventDto} class for details.
+     * @param createEventRequest event to be created. Please, see the {@link CreateEventRequest} class for details.
+     * @return CreateEventResponse which event is created. Please, see the {@link CreateEventResponse} class for details.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
     @Override
-    public EventDto createEvent(EventDto eventDto) {
-        return EventMapper.toDto(this.eventRepository.save(EventMapper.toEntity(eventDto)));
+    public CreateEventResponse createEvent(CreateEventRequest createEventRequest) {
+
+        if (!venueService.checkVenueStatusById(createEventRequest.getVenueId()))
+            throw new NotFoundException(VENUE_NOT_AVAILABLE);
+
+        if (!roomService.checkRoomStatusByIdAndCapacity(createEventRequest.getRoomId(), createEventRequest.getParticipantLimit()))
+            throw new NotFoundException(ROOM_NOT_AVAILABLE);
+
+        EventEntity eventEntity = this.eventRepository.save(EventMapper.toEntityFromCreateEventDto(createEventRequest));
+
+        CreateEventResponse createEventResponse = CreateEventResponseMapper.toDtoFromEvent(EventMapper.toDto(eventEntity));
+
+        return null;
     }
 
     /**
@@ -52,7 +77,7 @@ public class EventServiceImpl implements EventService {
      * @since 1.0.0
      */
     @Override
-    public EventDto updateEventStatus(UUID id, boolean status) {
+    public Event updateEventStatus(UUID id, boolean status) {
         EventEntity eventEntity = this.eventRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Event not found"));
         eventEntity.setActive(status);
 
@@ -62,13 +87,13 @@ public class EventServiceImpl implements EventService {
     /**
      * Return all event instances in the database
      *
-     * @return List<EventDto>. Please, see the {@link EventDto} class for details.
+     * @return List<Event>. Please, see the {@link Event} class for details.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
     @Override
-    public List<EventDto> getAllEvents() {
+    public List<Event> getAllEvents() {
         return EventMapper.toDtoList(this.eventRepository.findAll());
     }
 
@@ -76,13 +101,13 @@ public class EventServiceImpl implements EventService {
      * Return an event instance by using its id in the database
      *
      * @param id event id to be filtered
-     * @return EventDto. Please, see the {@link EventDto} class for details.
+     * @return Event. Please, see the {@link Event} class for details.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
     @Override
-    public EventDto getEvent(UUID id) {
+    public Event getEvent(UUID id) {
         return EventMapper.toDto(this.eventRepository.findById(id).orElseThrow(()-> new NoSuchElementException("Event Not Found")));
     }
 
@@ -90,19 +115,19 @@ public class EventServiceImpl implements EventService {
      * Update an event instance in the database
      *
      * @param id event id to be updated.
-     * @param eventDto event instance to be updated. Please, see the {@link EventDto} class for details.
-     * @return EventDto which is updated. Please, see the {@link EventDto} class for details.
+     * @param event event instance to be updated. Please, see the {@link Event} class for details.
+     * @return Event which is updated. Please, see the {@link Event} class for details.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
     @Override
-    public EventDto updateEvent(UUID id, EventDto eventDto) {
-        if(!Objects.equals(id,eventDto.getId()))
+    public Event updateEvent(UUID id, Event event) {
+        if(!Objects.equals(id, event.getId()))
             throw new IllegalArgumentException("Ids do not match");
         if(!this.eventRepository.existsById(id))
             throw new NoSuchElementException("Event not found");
 
-        return EventMapper.toDto(this.eventRepository.save(EventMapper.toEntity(eventDto)));
+        return EventMapper.toDto(this.eventRepository.save(EventMapper.toEntity(event)));
     }
 }

@@ -1,6 +1,8 @@
 package evrentan.community.eventmanager.controller;
 
-import evrentan.community.eventmanager.dto.EventDto;
+import evrentan.community.eventmanager.dto.entity.Event;
+import evrentan.community.eventmanager.dto.request.CreateEventRequest;
+import evrentan.community.eventmanager.dto.response.CreateEventResponse;
 import evrentan.community.eventmanager.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,7 +25,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/event", produces = "application/json", consumes = "application/json")
-@Tag(name = "Event Related APIs")
+@Tag(name = "EventEntity Related APIs")
 public class EventController {
 
     private final EventService eventService;
@@ -36,23 +38,23 @@ public class EventController {
      * REST end-point in order to create an event.
      * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
      *
-     * @param eventDto object that is going to be created. Please, see the {@link EventDto} class for details.
-     * @return EventDto Object within ResponseEntity.
+     * @param createEventRequest object that is going to be created. Please, see the {@link CreateEventRequest} class for details.
+     * @return Event Object within ResponseEntity.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
     @PostMapping
-    @Operation(summary = "Creat an Event")
+    @Operation(summary = "Creat an EventEntity")
     @ApiResponses(value = {
-            @ApiResponse(responseCode  = "200", description  = "Successfully Event Created"),
+            @ApiResponse(responseCode  = "200", description  = "Successfully EventEntity Created"),
             @ApiResponse(responseCode  = "400", description  = "Bad Request"),
             @ApiResponse(responseCode  = "404", description  = "Not Found"),
             @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
     })
-    public ResponseEntity<EventDto> createEvent(@RequestBody @NotNull EventDto eventDto){
-        final EventDto eventCreated = this.eventService.createEvent(eventDto);
-        return ResponseEntity.created(URI.create(this.eventService.createEvent(eventDto).getId().toString())).body(eventCreated);
+    public ResponseEntity<CreateEventResponse> createEvent(@RequestBody @NotNull CreateEventRequest createEventRequest){
+        final CreateEventResponse createEventResponse = this.eventService.createEvent(createEventRequest);
+        return ResponseEntity.created(URI.create(createEventResponse.getId().toString())).body(createEventResponse);
     }
 
     /**
@@ -60,28 +62,28 @@ public class EventController {
      * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
      *
      * @param id is the event id that is going to be deleted.
-     * @return EventDto Object within ResponseEntity. Please, see the {@link EventDto} class for details.
+     * @return Event Object within ResponseEntity. Please, see the {@link Event} class for details.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
     @PatchMapping(value = "/updateEventStatus")
-    @Operation(summary = "Update a Event Status by Id & Status value")
+    @Operation(summary = "Update a EventEntity Status by Id & Status value")
     @ApiResponses(value = {
-            @ApiResponse(responseCode  = "200", description  = "Successfully Update the Related Event Status"),
+            @ApiResponse(responseCode  = "200", description  = "Successfully Update the Related EventEntity Status"),
             @ApiResponse(responseCode  = "400", description  = "Bad Request"),
             @ApiResponse(responseCode  = "404", description  = "Not Found"),
             @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
     })
-    public ResponseEntity<EventDto> updateEventStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull EventDto eventDto){
-        return ResponseEntity.ok(this.eventService.updateEventStatus(id,eventDto.isActive()));
+    public ResponseEntity<Event> updateEventStatus(@RequestParam(value = "id") @NotNull UUID id, @RequestBody @NotNull Event event){
+        return ResponseEntity.ok(this.eventService.updateEventStatus(id, event.isActive()));
     }
 
     /**
      * REST end-point in order to get all events.
      * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
      *
-     * @return List of EventDto Object within ResponseEntity. Please, see the {@link EventDto} class for details.
+     * @return List of Event Object within ResponseEntity. Please, see the {@link Event} class for details.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
@@ -94,7 +96,7 @@ public class EventController {
             @ApiResponse(responseCode  = "404", description  = "Not Found"),
             @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
     })
-    public ResponseEntity<List<EventDto>> getAllEvents(){
+    public ResponseEntity<List<Event>> getAllEvents(){
         return ResponseEntity.ok(this.eventService.getAllEvents());
     }
 
@@ -103,20 +105,20 @@ public class EventController {
      * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
      *
      * @param id is the event id that is going to be retrieved.
-     * @return EventDto Object within ResponseEntity. Please, see the {@link EventDto} class for details.
+     * @return Event Object within ResponseEntity. Please, see the {@link Event} class for details.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
     @GetMapping(value = "/{id}")
-    @Operation(summary = "Get an Event by Id")
+    @Operation(summary = "Get an EventEntity by Id")
     @ApiResponses(value = {
             @ApiResponse(responseCode  = "200", description  = "Successfully Get the Related Community"),
             @ApiResponse(responseCode  = "400", description  = "Bad Request"),
             @ApiResponse(responseCode  = "404", description  = "Not Found"),
             @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
     })
-    public ResponseEntity<EventDto> getEvent(@PathVariable(value = "id") UUID id){
+    public ResponseEntity<Event> getEvent(@PathVariable(value = "id") UUID id){
         return ResponseEntity.ok(this.eventService.getEvent(id));
     }
 
@@ -125,22 +127,22 @@ public class EventController {
      * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
      *
      * @param id is the event id that is going to be updated.
-     * @param eventDto is the new object that is going to be updated within the existing one. Please, see the {@link EventDto} class for details.
-     * @return EventDto Object within ResponseEntity. Please, see the {@link EventDto} class for details.
+     * @param event is the new object that is going to be updated within the existing one. Please, see the {@link Event} class for details.
+     * @return Event Object within ResponseEntity. Please, see the {@link Event} class for details.
      *
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
      @PutMapping(value = "/{id}")
-     @Operation(summary = "Update an Event by Id")
+     @Operation(summary = "Update an EventEntity by Id")
      @ApiResponses(value = {
              @ApiResponse(responseCode  = "200", description  = "Successfully Update the Related Community"),
              @ApiResponse(responseCode  = "400", description  = "Bad Request"),
              @ApiResponse(responseCode  = "404", description  = "Not Found"),
              @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
      })
-    public ResponseEntity<EventDto> updateEvent(@PathVariable(value = "id") UUID id, @RequestBody @NotNull EventDto eventDto){
-         return ResponseEntity.ok(this.eventService.updateEvent(id,eventDto));
+    public ResponseEntity<Event> updateEvent(@PathVariable(value = "id") UUID id, @RequestBody @NotNull Event event){
+         return ResponseEntity.ok(this.eventService.updateEvent(id, event));
      }
 
 

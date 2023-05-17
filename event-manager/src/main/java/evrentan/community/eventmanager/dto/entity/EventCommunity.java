@@ -1,13 +1,14 @@
-package evrentan.community.eventmanager.dto;
+package evrentan.community.eventmanager.dto.entity;
 
+import evrentan.community.eventmanager.entity.EventCommunityEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
 /**
- * EventCommunityDto Class.
- * It is equalized to the {@link evrentan.community.eventmanager.entity.EventCommunity} in entity level.
+ * EventCommunity Class.
+ * It is equalized to the {@link EventCommunityEntity} in entity level.
  *
  * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
  * @since 1.0.0
@@ -18,14 +19,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Schema(description = "Event Community Class")
-public class EventCommunityDto {
+public class EventCommunity {
 
     /**
-     * Event ID in UUID Type.
+     * EventCommunity ID in UUID Type.
      *
      * @since 1.0.0
      */
-    @Schema(description = "Event Community ID in UUID Type")
+    @Schema(description = "EventCommunity ID in UUID Type")
     private UUID id;
 
     /**

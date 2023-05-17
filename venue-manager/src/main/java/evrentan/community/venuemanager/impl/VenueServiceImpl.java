@@ -76,6 +76,23 @@ public class VenueServiceImpl implements VenueService {
     return VenueMapper.toDto(this.venueRepository.findById(id).orElseThrow(() -> new NoSuchElementException(VENUE_NOT_FOUND)));
   }
 
+
+  /**
+   * Return true if venue is active, otherwise false.
+   *
+   * @param id is the venue id that is going to be retrieved.
+   * @return Boolean. true if Venue is active, otherwise false.
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  @Override
+  public Boolean checkVenueStatusById(UUID id) {
+    Venue venue = VenueMapper.toDto(this.venueRepository.findById(id).orElse(null));
+
+    return Objects.nonNull(venue) && venue.isActive();
+  }
+
   /**
    * Update a venue instance in the database
    *

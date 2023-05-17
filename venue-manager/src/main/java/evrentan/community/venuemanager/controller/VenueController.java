@@ -99,6 +99,28 @@ public class VenueController {
   }
 
   /**
+   * REST end-point in order to check a specific venue status object by venue ID.
+   * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
+   *
+   * @param id is the venue id that is going to be retrieved.
+   * @return Boolean. true if Venue is active, otherwise false
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  @GetMapping(value = "/checkVenueStatus/{id}")
+  @Operation(summary = "Check a Venue Status by Id")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode  = "200", description  = "Successfully Get the Related Venue"),
+          @ApiResponse(responseCode  = "400", description  = "Bad Request"),
+          @ApiResponse(responseCode  = "404", description  = "Not Found"),
+          @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
+  })
+  public Boolean checkVenueStatusById(@PathVariable(value = "id") UUID id) {
+    return this.venueService.checkVenueStatusById(id);
+  }
+
+  /**
    * REST end-point in order to update a specific venue object by venue ID.
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *

@@ -99,6 +99,29 @@ public class RoomController {
   }
 
   /**
+   * REST end-point in order to retrieve a specific room status object by room ID and participant limit.
+   * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
+   *
+   * @param id is the room id that is going to be retrieved.
+   * @param participantLimit is the limit of the event.
+   * @return Boolean. true if room status is okay (room is active and room capacity is enough), otherwise false
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  @GetMapping(value = "/checkRoomStatus/{id}/{participantLimit}")
+  @Operation(summary = "Get a Room by Id")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode  = "200", description  = "Successfully Get the Related Room"),
+          @ApiResponse(responseCode  = "400", description  = "Bad Request"),
+          @ApiResponse(responseCode  = "404", description  = "Not Found"),
+          @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
+  })
+  public Boolean checkRoomStatusByIdAndCapacity(@PathVariable(value = "id") UUID id, @PathVariable(value = "participantLimit") Integer participantLimit) {
+    return this.roomService.checkRoomStatusByIdAndCapacity(id, participantLimit);
+  }
+
+  /**
    * REST end-point in order to update a specific room object by room ID.
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *

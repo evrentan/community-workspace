@@ -1,14 +1,15 @@
-package evrentan.community.eventmanager.dto;
+package evrentan.community.eventmanager.dto.entity;
 
 
+import evrentan.community.eventmanager.entity.EventVenueEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.util.UUID;
 
 /**
- * EventParticipantDto Class.
- * It is equalized to the {@link evrentan.community.eventmanager.entity.EventVenue} in entity level.
+ * EventParticipant Class.
+ * It is equalized to the {@link EventVenueEntity} in entity level.
  *
  * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
  * @since 1.0.0
@@ -20,15 +21,15 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 @Builder
-@Schema(description = "Event Venue Class")
-public class EventVenueDto {
+@Schema(description = "EventVenue Class")
+public class EventVenue {
 
     /**
-     * Event Venue ID in UUID Type.
+     * EventVenue ID in UUID Type.
      *
      * @since 1.0.0
      */
-    @Schema(description = "Event Venue ID in UUID Type")
+    @Schema(description = "EventVenue ID in UUID Type")
     private UUID id;
 
     /**
