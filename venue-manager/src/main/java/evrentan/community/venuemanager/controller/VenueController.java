@@ -116,8 +116,8 @@ public class VenueController {
           @ApiResponse(responseCode  = "404", description  = "Not Found"),
           @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
-  public Boolean checkVenueStatusById(@PathVariable(value = "id") UUID id) {
-    return this.venueService.checkVenueStatusById(id);
+  public ResponseEntity<Boolean> checkVenueStatusById(@PathVariable(value = "id") UUID id) {
+    return ResponseEntity.ok(this.venueService.checkVenueStatusById(id));
   }
 
   /**

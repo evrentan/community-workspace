@@ -117,8 +117,8 @@ public class RoomController {
           @ApiResponse(responseCode  = "404", description  = "Not Found"),
           @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
   })
-  public Boolean checkRoomStatusByIdAndCapacity(@PathVariable(value = "id") UUID id, @PathVariable(value = "participantLimit") Integer participantLimit) {
-    return this.roomService.checkRoomStatusByIdAndCapacity(id, participantLimit);
+  public ResponseEntity<Boolean> checkRoomStatusByIdAndCapacity(@PathVariable(value = "id") UUID id, @PathVariable(value = "participantLimit") Integer participantLimit) {
+    return ResponseEntity.ok(this.roomService.checkRoomStatusByIdAndCapacity(id, participantLimit));
   }
 
   /**

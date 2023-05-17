@@ -8,7 +8,6 @@ import evrentan.community.eventmanager.mapper.CreateEventResponseMapper;
 import evrentan.community.eventmanager.mapper.EventMapper;
 import evrentan.community.eventmanager.repository.EventRepository;
 import evrentan.community.eventmanager.service.EventService;
-import evrentan.community.eventmanager.service.RoomService;
 import evrentan.community.eventmanager.service.VenueService;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -34,12 +33,10 @@ public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
     private final VenueService venueService;
-    private final RoomService roomService;
 
-    public EventServiceImpl (EventRepository eventRepository, VenueService venueService, RoomService roomService){
+    public EventServiceImpl (EventRepository eventRepository, VenueService venueService){
         this.eventRepository = eventRepository;
         this.venueService = venueService;
-        this.roomService = roomService;
     }
 
     /**
@@ -58,17 +55,15 @@ public class EventServiceImpl implements EventService {
 
         EventEntity eventEntity = this.eventRepository.save(EventMapper.toEntityFromCreateEventDto(createEventRequest));
 
-        CreateEventResponse createEventResponse = CreateEventResponseMapper.toDtoFromEvent(EventMapper.toDto(eventEntity));
-
-        return null;
+        return CreateEventResponseMapper.toDtoFromEvent(EventMapper.toDto(eventEntity));
     }
 
     private void checkPhysicalEventAvailability(CreateEventRequest createEventRequest) {
         if (!createEventRequest.isOnline()) {
-            if (!venueService.checkVenueStatusById(createEventRequest.getVenueId()))
+            if (!venueService.checkVenueStatusById(createEventRequest.getVenueId()).getBody())
                 throw new NotFoundException(VENUE_NOT_AVAILABLE);
 
-            if (!roomService.checkRoomStatusByIdAndCapacity(createEventRequest.getRoomId(), createEventRequest.getParticipantLimit()))
+            if (!venueService.checkRoomStatusByIdAndCapacity(createEventRequest.getRoomId(), createEventRequest.getParticipantLimit()).getBody())
                 throw new NotFoundException(ROOM_NOT_AVAILABLE);
         }
     }
