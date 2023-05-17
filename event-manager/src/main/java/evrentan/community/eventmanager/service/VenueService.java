@@ -24,6 +24,6 @@ public interface VenueService {
      * @author <a href="https://github.com/evrentan">Evren Tan</a>
      * @since 1.0.0
      */
-    @GetMapping(value = "/checkVenueStatus/{id}", consumes = "application/json", produces = "application/json")
+    @GetMapping(value = "/venue/checkVenueStatus/{id}", consumes = "application/json", produces = "application/json")
     Boolean checkVenueStatusById(@PathVariable UUID id);
 }
