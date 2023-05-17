@@ -88,7 +88,7 @@ public class VenueServiceImpl implements VenueService {
    */
   @Override
   public Boolean checkVenueStatusById(UUID id) {
-    Venue venue = VenueMapper.toDto(this.venueRepository.findById(id).orElse(null));
+    final Venue venue = VenueMapper.toDto(this.venueRepository.findById(id).orElse(null));
 
     return Objects.nonNull(venue) && venue.isActive();
   }

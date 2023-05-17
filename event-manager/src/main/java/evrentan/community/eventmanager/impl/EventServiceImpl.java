@@ -54,17 +54,23 @@ public class EventServiceImpl implements EventService {
     @Override
     public CreateEventResponse createEvent(CreateEventRequest createEventRequest) {
 
-        if (!venueService.checkVenueStatusById(createEventRequest.getVenueId()))
-            throw new NotFoundException(VENUE_NOT_AVAILABLE);
-
-        if (!roomService.checkRoomStatusByIdAndCapacity(createEventRequest.getRoomId(), createEventRequest.getParticipantLimit()))
-            throw new NotFoundException(ROOM_NOT_AVAILABLE);
+        this.checkPhysicalEventAvailability(createEventRequest);
 
         EventEntity eventEntity = this.eventRepository.save(EventMapper.toEntityFromCreateEventDto(createEventRequest));
 
         CreateEventResponse createEventResponse = CreateEventResponseMapper.toDtoFromEvent(EventMapper.toDto(eventEntity));
 
         return null;
+    }
+
+    private void checkPhysicalEventAvailability(CreateEventRequest createEventRequest) {
+        if (!createEventRequest.isOnline()) {
+            if (!venueService.checkVenueStatusById(createEventRequest.getVenueId()))
+                throw new NotFoundException(VENUE_NOT_AVAILABLE);
+
+            if (!roomService.checkRoomStatusByIdAndCapacity(createEventRequest.getRoomId(), createEventRequest.getParticipantLimit()))
+                throw new NotFoundException(ROOM_NOT_AVAILABLE);
+        }
     }
 
     /**

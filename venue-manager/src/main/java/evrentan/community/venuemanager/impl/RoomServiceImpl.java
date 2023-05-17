@@ -87,7 +87,7 @@ public class RoomServiceImpl implements evrentan.community.venuemanager.service.
   @Override
   public Boolean checkRoomStatusByIdAndCapacity(UUID id, Integer participantLimit) {
 
-    Room room = RoomMapper.toDto(this.roomRepository.findById(id).orElse(null));
+    final Room room = RoomMapper.toDto(this.roomRepository.findById(id).orElse(null));
 
     return Objects.nonNull(room) && room.isActive() && room.getCapacity() >= participantLimit;
   }
