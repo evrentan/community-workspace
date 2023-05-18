@@ -99,7 +99,7 @@ public class RoomController {
   }
 
   /**
-   * REST end-point in order to retrieve a specific room status object by room ID and participant limit.
+   * REST end-point in order to retrieve a specific room status is active or not by room ID and participant limit.
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *
    * @param id is the room id that is going to be retrieved.

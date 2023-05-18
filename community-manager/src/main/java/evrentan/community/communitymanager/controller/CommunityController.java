@@ -98,6 +98,28 @@ public class CommunityController {
   }
 
   /**
+   * REST end-point in order to check a specific community status is active by community ID.
+   * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
+   *
+   * @param id is the community id that is going to be retrieved.
+   * @return Boolean. true if Community is active, otherwise false
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  @GetMapping(value = "/checkCommunityStatus/{id}")
+  @Operation(summary = "Get a Community by Id")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode  = "200", description  = "Successfully Get the Related Community"),
+          @ApiResponse(responseCode  = "400", description  = "Bad Request"),
+          @ApiResponse(responseCode  = "404", description  = "Not Found"),
+          @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
+  })
+  public ResponseEntity<Boolean> checkCommunityStatusById(@PathVariable(value = "id") UUID id) {
+    return ResponseEntity.ok(this.communityService.checkCommunityStatusById(id));
+  }
+
+  /**
    * REST end-point in order to update a specific community object by community ID.
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *
