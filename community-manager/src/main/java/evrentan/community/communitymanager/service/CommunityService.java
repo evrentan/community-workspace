@@ -46,6 +46,17 @@ public interface CommunityService {
   Community getCommunity(UUID id);
 
   /**
+   * Return true if community is active, otherwise false.
+   *
+   * @param id is the community id that is going to be retrieved.
+   * @return Boolean. true if Community is active, otherwise false
+   *
+   * @author <a href="https://github.com/evrentan">Evren Tan</a>
+   * @since 1.0.0
+   */
+  Boolean checkCommunityStatusById(UUID id);
+
+  /**
    * Update a community instance in the database
    *
    * @param id community id to be updated.

@@ -99,7 +99,7 @@ public class VenueController {
   }
 
   /**
-   * REST end-point in order to check a specific venue status object by venue ID.
+   * REST end-point in order to check a specific venue status is active or not object by venue ID.
    * Details related to API specs can be found in the API Documentation which can be reached as described in README file.
    *
    * @param id is the venue id that is going to be retrieved.

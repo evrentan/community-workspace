@@ -7,6 +7,7 @@ import evrentan.community.eventmanager.entity.EventEntity;
 import evrentan.community.eventmanager.mapper.CreateEventResponseMapper;
 import evrentan.community.eventmanager.mapper.EventMapper;
 import evrentan.community.eventmanager.repository.EventRepository;
+import evrentan.community.eventmanager.service.CommunityService;
 import evrentan.community.eventmanager.service.EventService;
 import evrentan.community.eventmanager.service.VenueService;
 import org.springframework.stereotype.Service;
@@ -27,16 +28,18 @@ import java.util.UUID;
 @Service
 public class EventServiceImpl implements EventService {
 
+    private static final String COMMUNITY_NOT_AVAILABLE = "Community is not available !!!";
     private static final String VENUE_NOT_AVAILABLE = "Venue is not available !!!";
     private static final String ROOM_NOT_AVAILABLE = "Room is not available !!!";
 
-
     private final EventRepository eventRepository;
     private final VenueService venueService;
+    private final CommunityService communityService;
 
-    public EventServiceImpl (EventRepository eventRepository, VenueService venueService){
+    public EventServiceImpl (EventRepository eventRepository, VenueService venueService, CommunityService communityService){
         this.eventRepository = eventRepository;
         this.venueService = venueService;
+        this.communityService = communityService;
     }
 
     /**
@@ -51,21 +54,11 @@ public class EventServiceImpl implements EventService {
     @Override
     public CreateEventResponse createEvent(CreateEventRequest createEventRequest) {
 
-        this.checkPhysicalEventAvailability(createEventRequest);
+        this.doPreChecksForEventCreation(createEventRequest);
 
         EventEntity eventEntity = this.eventRepository.save(EventMapper.toEntityFromCreateEventDto(createEventRequest));
 
         return CreateEventResponseMapper.toDtoFromEvent(EventMapper.toDto(eventEntity));
-    }
-
-    private void checkPhysicalEventAvailability(CreateEventRequest createEventRequest) {
-        if (!createEventRequest.isOnline()) {
-            if (!venueService.checkVenueStatusById(createEventRequest.getVenueId()).getBody())
-                throw new NotFoundException(VENUE_NOT_AVAILABLE);
-
-            if (!venueService.checkRoomStatusByIdAndCapacity(createEventRequest.getRoomId(), createEventRequest.getParticipantLimit()).getBody())
-                throw new NotFoundException(ROOM_NOT_AVAILABLE);
-        }
     }
 
     /**
@@ -130,5 +123,26 @@ public class EventServiceImpl implements EventService {
             throw new NoSuchElementException("Event not found");
 
         return EventMapper.toDto(this.eventRepository.save(EventMapper.toEntity(event)));
+    }
+
+    private void doPreChecksForEventCreation(CreateEventRequest createEventRequest) {
+        this.checkCommunityAvailability(createEventRequest.getCommunityId());
+
+        this.checkPhysicalEventAvailability(createEventRequest);
+    }
+    private void checkCommunityAvailability(UUID communityId) {
+        if (!this.communityService.checkCommunityStatusById(communityId).getBody()) {
+            throw new NoSuchElementException(COMMUNITY_NOT_AVAILABLE);
+        }
+    }
+
+    private void checkPhysicalEventAvailability(CreateEventRequest createEventRequest) {
+        if (!createEventRequest.isOnline()) {
+            if (!this.venueService.checkVenueStatusById(createEventRequest.getVenueId()).getBody())
+                throw new NotFoundException(VENUE_NOT_AVAILABLE);
+
+            if (!this.venueService.checkRoomStatusByIdAndCapacity(createEventRequest.getRoomId(), createEventRequest.getParticipantLimit()).getBody())
+                throw new NotFoundException(ROOM_NOT_AVAILABLE);
+        }
     }
 }
