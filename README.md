@@ -12,7 +12,8 @@ Services are developed in the following modules:
 1. [How to Contribute](#how-to-contribute)
 2. [Requirements](#requirements)
 3. [Version Control Standards](#version-control-standards)
-4. [Copyright](#copyright)
+4. [Postman Collection](#postman-collection)
+5. [Copyright](#copyright)
 
 ## How to Contribute
 
@@ -49,6 +50,10 @@ Below version control standards should be followed within the project;
 - PRs should be linked with a valid issue in the [Community Workspace GitHub Repository Project][community-workspace-github].
 - If validations are passed in the [staging branch][staging-branch-github-link], then a merge branch request is created with "merge branch" label & a linked PR to the [main branch][main-branch-github-link].
 
+## Postman Collection
+
+You can find the postman collection within this [file][postman-collection-file].
+
 ## Copyright
 
 GNU General Public License v3.0
@@ -64,3 +69,4 @@ Please check the [LICENSE](LICENSE) file for more details.
 [community-workspace-github]: https://github.com/evrentan/community-workspace
 [staging-branch-github-link]: https://github.com/evrentan/community-workspace/tree/staging
 [main-branch-github-link]: https://github.com/evrentan/community-workspace/tree/main
+[postman-collection-file]: postman-collection/CommunityWorkspacePostmanCollection.json
