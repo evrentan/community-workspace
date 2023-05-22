@@ -1,0 +1,956 @@
+{
+	"info": {
+		"_postman_id": "df71eb65-a798-4cf8-bb1f-d866c7b309db",
+		"name": "Community Workspace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3822332"
+	},
+	"item": [
+		{
+			"name": "Community Manager",
+			"item": [
+				{
+					"name": "Create Community",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Turkey Java Community\",\n    \"description\": \"Turkey Java Community\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8833/community-manager/community",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8833",
+							"path": [
+								"community-manager",
+								"community"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Community",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8833/community-manager/community",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8833",
+							"path": [
+								"community-manager",
+								"community"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Community",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"1e016c9b-5781-4765-8c21-aecc52c0da9f\",\n    \"name\": \"Turkey Java Community\",\n    \"description\": \"Turkey's Best Java User Group\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8833/community-manager/community/{communityId}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8833",
+							"path": [
+								"community-manager",
+								"community",
+								"{communityId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Community Status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8833/community-manager/community/updateCommunityStatus?id={communityId}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8833",
+							"path": [
+								"community-manager",
+								"community",
+								"updateCommunityStatus"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{communityId}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Community Manager Actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/actuator/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"actuator",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Venue Manager",
+			"item": [
+				{
+					"name": "Venue",
+					"item": [
+						{
+							"name": "Create Venue",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Ankara TEKMER\",\n    \"description\": \"Ankara TEKMER\",\n    \"city\": \"Ankara\",\n    \"address\": \"Ankara\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/venue",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"venue"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Venue",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"e8a316ab-1853-4800-beef-33460074ad1d\",\n    \"name\": \"Ankara TEKMER\",\n    \"description\": \"Ankara TEKMER\",\n    \"city\": \"Ankara\",\n    \"address\": \"Cankaya Ankara\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/venue/{venueId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"venue",
+										"{venueId}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Room(s) to Venue",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"roomId\": \"{roomId1}\"\n    },\n    {\n        \"roomId\": \"{roomId2}\"\n    },\n    {\n        \"roomId\": \"{roomId3}\"\n        }\n]"
+								},
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/venue/addRooms?id={venueId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"venue",
+										"addRooms"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{venueId}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Room(s) from Venue",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"roomId\": \"{roomId1}\"\n    },\n    {\n        \"roomId\": \"{roomId2}\"\n    },\n    {\n        \"roomId\": \"{roomId3}\"\n    }\n]"
+								},
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/venue/removeRooms?id={venueId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"venue",
+										"removeRooms"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{venueId}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Venue Status",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"active\": false\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/venue/updateVenueStatus?id={venueId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"venue",
+										"updateVenueStatus"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{venueId}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Venue",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/venue",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"venue"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Room",
+					"item": [
+						{
+							"name": "Assign to Venue",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"venueId\": \"{venueId}\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/room/assignToVenue?id={roomId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"room",
+										"assignToVenue"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{roomId}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove From Venue",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/room/removeFromVenue?id={roomId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"room",
+										"removeFromVenue"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{roomId}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Room Status",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"active\": true\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/room/updateRoomStatus?id={roomId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"room",
+										"updateRoomStatus"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{roomId}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Room",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Ankara TEKMER Main Room\",\n    \"description\": \"Ankara TEKMER Main Room\",\n    \"capacity\": 75\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/room",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"room"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Room",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"ed327cc4-d81c-471d-90a1-641ff0072ce2\",\n    \"name\": \"Ankara TEKMER\",\n    \"description\": \"Ankara TEKMER\",\n    \"city\": \"Ankara\",\n    \"address\": \"Cankaya Ankara\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/room/{roomId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"room",
+										"{roomId}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Room",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8833/venue-manager/room",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"venue-manager",
+										"room"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Venue Manager Actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8102/actuator/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8102",
+							"path": [
+								"actuator",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Manager",
+			"item": [
+				{
+					"name": "User Type",
+					"item": [
+						{
+							"name": "Create User Type",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"code\": \"testUserType\",\n    \"description\": \"Test User Type\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8833/user-manager/userType",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"user-manager",
+										"userType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Type Status",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"active\": false\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8091/userType/updateUserTypeStatus?id={userId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"userType",
+										"updateUserTypeStatus"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{userId}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Type",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"ed327cc4-d81c-471d-90a1-641ff0072ce2\",\n    \"code\": \"testUserType\",\n    \"description\": \"Testing\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8833/user-manager/userType/{userId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"user-manager",
+										"userType",
+										"{userId}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User Type",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8833/user-manager/userType",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"user-manager",
+										"userType"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Application User",
+					"item": [
+						{
+							"name": "Create User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fullName\": \"Evren Tan\",\n    \"email\": \"evren.tan@turkeyjava.com\",\n    \"twitterAccount\": \"evrn_tan\",\n    \"linkedInAccount\": \"evren-tan\",\n    \"githubAccount\": \"evrentan\",\n    \"websiteUrl\": \"https://evrentan.com\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8091/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Status By Id",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"active\": false\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8091/user/updateUserStatusById?id={userId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"user",
+										"updateUserStatusById"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "{userId}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"ed327cc4-d81c-471d-90a1-641ff0072ce2\",\n    \"fullName\": \"Evren Tan\",\n    \"email\": \"evren.tan@turkeyjava.com\",\n    \"twitterAccount\": \"evrn_tan\",\n    \"linkedInAccount\": \"evren-tan\",\n    \"githubAccount\": \"evrentan\",\n    \"websiteUrl\": \"https://evrentan.com\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8091/user/{userId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"user",
+										"{userId}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Users",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8833/user-manager/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8833",
+									"path": [
+										"user-manager",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8091/user/{userId}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"user",
+										"{userId}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User By Email",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8091/user/emai/{userEmail}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"user",
+										"emai",
+										"{userEmail}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User Manager Actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8092/actuator/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"actuator",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event Manager",
+			"item": [
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Event 3\",\n    \"description\": \"Event 3 Description\",\n    \"eventDate\": \"2023-05-23T19:00:00\",\n    \"communityId\": \"{communityId}\",\n    \"isOnline\": false,\n    \"venueId\": \"{venueId}\",\n    \"roomId\": \"{roomId}\",\n    \"isFree\": true,\n    \"participantLimit\": 80\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8833/event-manager/event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8833",
+							"path": [
+								"event-manager",
+								"event"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
