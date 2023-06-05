@@ -19,7 +19,7 @@ Services are developed in the following modules:
 
 For the contributor covenant to this project, please check the Code of Conduct file.
 
-[![Contributor Covenant][contributor]](CODE_OF_CONDUCT.md)
+[![Contributor Covenant][contributor-covenant-badge]](CODE_OF_CONDUCT.md)
 
 ### Credits
 
@@ -65,7 +65,7 @@ Please check the [LICENSE](LICENSE) file for more details.
 [gradle-version]: https://gradle.org/releases/
 [postgresql-version]: https://www.postgresql.org/
 [flyway-migration]: https://flywaydb.org/documentation/
-[contributor]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+[contributor-covenant-badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [community-workspace-github]: https://github.com/evrentan/community-workspace
 [staging-branch-github-link]: https://github.com/evrentan/community-workspace/tree/staging
 [main-branch-github-link]: https://github.com/evrentan/community-workspace/tree/main

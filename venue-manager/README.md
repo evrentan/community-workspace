@@ -21,7 +21,7 @@ Service boots from 8101 port & Actuator Management is served from 8101 port with
 
 For the contributor covenant to this project, please check the Code of Conduct file.
 
-[![Contributor Covenant][contributor]](CODE_OF_CONDUCT.md)
+[![Contributor Covenant][contributor-covenant-badge]](CODE_OF_CONDUCT.md)
 
 ## Credits
 
@@ -102,7 +102,7 @@ Please check the [LICENSE](LICENSE) file for more details.
 [java-version]: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 [gradle-version]: https://gradle.org/releases/
 [postgresql-version]: https://www.postgresql.org/
-[contributor]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+[contributor-covenant-badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [community-workspace-github]: https://github.com/evrentan/community-workspace
 [venue-manager-main-class]: src/main/java/evrentan/community/venuemanager/spring/spring/VenueManagerApplication.java
 [spring-boot-gradle-plugin]: https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/

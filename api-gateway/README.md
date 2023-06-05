@@ -22,7 +22,7 @@ Service boots from 8833 port & Actuator Management is served from 8834 port.
 
 For the contributor covenant to this project, please check the Code of Conduct file.
 
-[![Contributor Covenant][contributor]](CODE_OF_CONDUCT.md)
+[![Contributor Covenant][contributor-covenant-badge]](CODE_OF_CONDUCT.md)
 
 ## Credits
 
@@ -96,7 +96,7 @@ Please check the [LICENSE](LICENSE) file for more details.
 [java-version]: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 [gradle-version]: https://gradle.org/releases/
 [spring-cloud-config-server]: https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html
-[contributor]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+[contributor-covenant-badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [community-workspace-github]: https://github.com/evrentan/community-workspace
 [api-gateway-main-class]: src/main/java/evrentan/community/apigateway/spring/spring/ApiGatewayApplication.java
 [spring-boot-gradle-plugin]: https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/

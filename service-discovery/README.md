@@ -20,7 +20,7 @@ Service Discovery module runs on 6969 port and can be reached from the link: htt
 
 For the contributor covenant to this project, please check the Code of Conduct file.
 
-[![Contributor Covenant][contributor]](CODE_OF_CONDUCT.md)
+[![Contributor Covenant][contributor-covenant-badge]](CODE_OF_CONDUCT.md)
 
 ## Credits
 
@@ -92,7 +92,7 @@ Permissions of this strong copyleft license are conditioned on making available 
 [spring-boot-version]: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Release-Notes
 [java-version]: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 [gradle-version]: https://gradle.org/releases/
-[contributor]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+[contributor-covenant-badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [community-workspace-github]: https://github.com/evrentan/community-workspace
 [service-discovery-main-class]: src/main/java/evrentan/community/servicediscovery/spring/spring/ServiceDiscoveryApplication.java
 [spring-boot-gradle-plugin]: https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/

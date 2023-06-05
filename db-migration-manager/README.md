@@ -1,3 +1,6 @@
+# **This service is _Deprecated_ as all Flyway Migration Scripts are moved under the related services.**
+** Do not make any development for this service !!!**
+
 # DB Migration Manager Service
 A DB Migration Manager Service within the Community Workspace for Small Communities with Spring Boot 2.6.6, JDK 17, Gradle & Flyway Migration.
  
@@ -20,7 +23,7 @@ Service boots from 8071 port & Actuator Management is served from 8072 port.
 
 For the contributor covenant to this project, please check the Code of Conduct file.
 
-[![Contributor Covenant][contributor]](CODE_OF_CONDUCT.md)
+[![Contributor Covenant][contributor-covenant-badge]](CODE_OF_CONDUCT.md)
 
 ## Credits
 
@@ -93,7 +96,7 @@ Please check the [LICENSE](LICENSE) file for more details.
 [java-version]: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 [gradle-version]: https://gradle.org/releases/
 [flyway-migration]: https://flywaydb.org/documentation/
-[contributor]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
+[contributor-covenant-badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg
 [community-workspace-github]: https://github.com/evrentan/community-workspace
 [db-migration-manager-main-class]: src/main/java/evrentan/community/dbmigrationmanager/spring/spring/DbMigrationManagerApplication.java
 [spring-boot-gradle-plugin]: https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/
