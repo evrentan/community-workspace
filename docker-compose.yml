@@ -1,0 +1,67 @@
+version: '3.9'
+services:
+  config-server:
+    image: community-workspace-config-server:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./config-server
+    networks:
+      - community-workspace-network
+    ports:
+      - "8888:8888"
+    expose:
+      - "8888"
+    environment:
+      SERVER_PORT: 8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+      SERVICE_DISCOVERY_DEFAULT_ZONE: http://service-discovery:6969/eureka
+  service-discovery:
+    image: community-workspace-service-discovery:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./service-discovery
+    networks:
+      - community-workspace-network
+    ports:
+      - "6969:6969"
+    expose:
+      - "6969"
+    depends_on:
+      config-server:
+        condition: service_started
+    environment:
+      SERVER_PORT: 6969
+      SERVICE_DISCOVERY_URL: service-discovery
+      CONFIG_SERVER_URI: http://config-server:8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+    links:
+      - config-server:config-server
+  api-gateway:
+    image: community-workspace-api-gateway:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./api-gateway
+    networks:
+      - community-workspace-network
+    ports:
+      - "8833:8833"
+    expose:
+      - "8833"
+    depends_on:
+      config-server:
+        condition: service_started
+      service-discovery:
+        condition: service_started
+    environment:
+      SERVER_PORT: 8833
+      CONFIG_SERVER_URI: http://config-server:8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+      SERVICE_DISCOVERY_DEFAULT_ZONE: http://service-discovery:6969/eureka
+    links:
+      - config-server:config-server
+      - service-discovery:service-discovery
+networks:
+  community-workspace-network:
