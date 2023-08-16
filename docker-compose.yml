@@ -1,5 +1,23 @@
 version: '3.9'
 services:
+  community-manager-db:
+    image: postgres:latest
+    container_name: community-manager-db
+    ports:
+      - "5432:5432"
+    networks:
+      - community-workspace-network
+    volumes:
+      - ./community-manager/docker/postgres/initDb.sql:/docker-entrypoint-initdb.d/initDb.sql
+    environment:
+      POSTGRES_DB: community-manager-db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   config-server:
     image: community-workspace-config-server:1.0.0
     platform: linux/amd64
@@ -63,5 +81,45 @@ services:
     links:
       - config-server:config-server
       - service-discovery:service-discovery
+  community-manager:
+    image: community-workspace-community-manager:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./community-manager
+    networks:
+      - community-workspace-network
+    ports:
+      - "8081:8081"
+    expose:
+      - "8081"
+    depends_on:
+      community-manager-db:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+      service-discovery:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    environment:
+      SERVER_PORT: 8081
+      CONFIG_SERVER_URI: http://config-server:8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+      SERVICE_DISCOVERY_DEFAULT_ZONE: http://service-discovery:6969/eureka
+      SPRING_DATASOURCE_URL: jdbc:postgresql://community-manager-db:5432/community-manager-db?currentSchema=community-manager
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_DATASOURCE_HIKARI_SCHEMA: community-manager
+      SPRING_DATASOURCE_HIKARI_POOL_NAME: CommunityManagerJPAHikariCP
+      SPRING_FLYWAY_URL: jdbc:postgresql://community-manager-db:5432/community-manager-db
+      SPRING_FLYWAY_USER: admin
+      SPRING_FLYWAY_PASSWORD: admin
+      SPRING_FLYWAY_SCHEMAS: community-manager
+    links:
+      - config-server:config-server
+      - service-discovery:service-discovery
+      - api-gateway:api-gateway
+      - community-manager-db:community-manager-db
 networks:
   community-workspace-network:
