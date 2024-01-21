@@ -1,0 +1,254 @@
+version: '3.9'
+services:
+
+  community-manager-db:
+    image: postgres:latest
+    container_name: community-manager-db
+    ports:
+      - "5432:5432"
+    networks:
+      - community-workspace-network
+    volumes:
+      - ./community-manager/docker/postgres/initDb.sql:/docker-entrypoint-initdb.d/initDb.sql
+    environment:
+      POSTGRES_DB: community-manager-db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  config-server:
+    image: community-workspace-config-server:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./config-server
+    networks:
+      - community-workspace-network
+    ports:
+      - "8888:8888"
+    expose:
+      - "8888"
+    environment:
+      SERVER_PORT: 8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+      SERVICE_DISCOVERY_DEFAULT_ZONE: http://service-discovery:6969/eureka
+  service-discovery:
+    image: community-workspace-service-discovery:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./service-discovery
+    networks:
+      - community-workspace-network
+    ports:
+      - "6969:6969"
+    expose:
+      - "6969"
+    depends_on:
+      config-server:
+        condition: service_started
+    environment:
+      SERVER_PORT: 6969
+      SERVICE_DISCOVERY_URL: service-discovery
+      CONFIG_SERVER_URI: http://config-server:8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+    links:
+      - config-server:config-server
+
+  api-gateway:
+    image: community-workspace-api-gateway:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./api-gateway
+    networks:
+      - community-workspace-network
+    ports:
+      - "8833:8833"
+    expose:
+      - "8833"
+    depends_on:
+      config-server:
+        condition: service_started
+      service-discovery:
+        condition: service_started
+    environment:
+      SERVER_PORT: 8833
+      CONFIG_SERVER_URI: http://config-server:8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+      SERVICE_DISCOVERY_DEFAULT_ZONE: http://service-discovery:6969/eureka
+    links:
+      - config-server:config-server
+      - service-discovery:service-discovery
+
+  community-manager:
+    image: community-workspace-community-manager:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./community-manager
+    networks:
+      - community-workspace-network
+    ports:
+      - "8081:8081"
+    expose:
+      - "8081"
+    depends_on:
+      community-manager-db:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+      service-discovery:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    environment:
+      SERVER_PORT: 8081
+      CONFIG_SERVER_URI: http://config-server:8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+      SERVICE_DISCOVERY_DEFAULT_ZONE: http://service-discovery:6969/eureka
+      SPRING_DATASOURCE_URL: jdbc:postgresql://community-manager-db:5432/community-manager-db?currentSchema=community-manager
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_DATASOURCE_HIKARI_SCHEMA: community-manager
+      SPRING_DATASOURCE_HIKARI_POOL_NAME: CommunityManagerJPAHikariCP
+      SPRING_FLYWAY_URL: jdbc:postgresql://community-manager-db:5432/community-manager-db
+      SPRING_FLYWAY_USER: admin
+      SPRING_FLYWAY_PASSWORD: admin
+      SPRING_FLYWAY_SCHEMAS: community-manager
+    links:
+      - config-server:config-server
+      - service-discovery:service-discovery
+      - api-gateway:api-gateway
+      - community-manager-db:community-manager-db
+
+  event-manager:
+    image: community-workspace-event-manager:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./event-manager
+    networks:
+      - community-workspace-network
+    ports:
+      - "8201:8201"
+    expose:
+      - "8201"
+    depends_on:
+      community-manager-db:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+      service-discovery:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    environment:
+      SERVER_PORT: 8201
+      CONFIG_SERVER_URI: http://config-server:8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+      SERVICE_DISCOVERY_DEFAULT_ZONE: http://service-discovery:6969/eureka
+      SPRING_DATASOURCE_URL: jdbc:postgresql://community-manager-db:5432/community-manager-db?currentSchema=event-manager
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_DATASOURCE_HIKARI_SCHEMA: event-manager
+      SPRING_DATASOURCE_HIKARI_POOL_NAME: EventManagerJPAHikariCP
+      SPRING_FLYWAY_URL: jdbc:postgresql://community-manager-db:5432/community-manager-db
+      SPRING_FLYWAY_USER: admin
+      SPRING_FLYWAY_PASSWORD: admin
+      SPRING_FLYWAY_SCHEMAS: event-manager
+    links:
+      - config-server:config-server
+      - service-discovery:service-discovery
+      - api-gateway:api-gateway
+      - community-manager-db:community-manager-db
+
+  venue-manager:
+    image: community-workspace-venue-manager:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./venue-manager
+    networks:
+      - community-workspace-network
+    ports:
+      - "8101:8101"
+    expose:
+      - "8101"
+    depends_on:
+      community-manager-db:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+      service-discovery:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    environment:
+      SERVER_PORT: 8101
+      CONFIG_SERVER_URI: http://config-server:8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+      SERVICE_DISCOVERY_DEFAULT_ZONE: http://service-discovery:6969/eureka
+      SPRING_DATASOURCE_URL: jdbc:postgresql://community-manager-db:5432/community-manager-db?currentSchema=venue-manager
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_DATASOURCE_HIKARI_SCHEMA: venue-manager
+      SPRING_DATASOURCE_HIKARI_POOL_NAME: VenueManagerJPAHikariCP
+      SPRING_FLYWAY_URL: jdbc:postgresql://community-manager-db:5432/community-manager-db
+      SPRING_FLYWAY_USER: admin
+      SPRING_FLYWAY_PASSWORD: admin
+      SPRING_FLYWAY_SCHEMAS: venue-manager
+    links:
+      - config-server:config-server
+      - service-discovery:service-discovery
+      - api-gateway:api-gateway
+      - community-manager-db:community-manager-db
+
+  user-manager:
+    image: community-workspace-user-manager:1.0.0
+    platform: linux/amd64
+    build:
+      context: ./user-manager
+    networks:
+      - community-workspace-network
+    ports:
+      - "8091:8091"
+    expose:
+      - "8091"
+    depends_on:
+      community-manager-db:
+        condition: service_healthy
+      config-server:
+        condition: service_started
+      service-discovery:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    environment:
+      SERVER_PORT: 8091
+      CONFIG_SERVER_URI: http://config-server:8888
+      CONFIG_SERVER_USERNAME: config-server
+      CONFIG_SERVER_PASSWORD: Config*Server.321
+      SERVICE_DISCOVERY_DEFAULT_ZONE: http://service-discovery:6969/eureka
+      SPRING_DATASOURCE_URL: jdbc:postgresql://community-manager-db:5432/community-manager-db?currentSchema=user-manager
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_DATASOURCE_HIKARI_SCHEMA: user-manager
+      SPRING_DATASOURCE_HIKARI_POOL_NAME: UserManagerJPAHikariCP
+      SPRING_FLYWAY_URL: jdbc:postgresql://community-manager-db:5432/community-manager-db
+      SPRING_FLYWAY_USER: admin
+      SPRING_FLYWAY_PASSWORD: admin
+      SPRING_FLYWAY_SCHEMAS: user-manager
+    links:
+      - config-server:config-server
+      - service-discovery:service-discovery
+      - api-gateway:api-gateway
+      - community-manager-db:community-manager-db
+
+networks:
+  community-workspace-network:
+    driver: bridge

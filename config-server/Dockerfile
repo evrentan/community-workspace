@@ -4,6 +4,11 @@ COPY . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle build -x test
 
+FROM ubuntu
+RUN mkdir /app
+COPY ../config-server-data /app
+RUN cd /app; chmod 400 config-server-data
+
 FROM openjdk:17-alpine
 LABEL maintainer="Evren Tan"
 ARG APP_JAR
