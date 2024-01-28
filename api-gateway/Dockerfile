@@ -1,10 +1,10 @@
 ARG APP_JAR=api-gateway-1.0.0.jar
-FROM gradle:7-jdk17-alpine AS build
+FROM gradle:8.5-jdk21 AS build
 COPY . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle build -x test
 
-FROM openjdk:17-alpine
+FROM openjdk:21
 LABEL maintainer="Evren Tan"
 ARG APP_JAR
 ENV APP_JAR_ENV=$APP_JAR
