@@ -1,5 +1,5 @@
 # Config Server
-A Config Server within the Community Workspace for Small Communities with Spring Boot 3.0.0, JDK 17, Gradle & Spring Cloud Config Server.
+A Config Server within the Community Workspace for Small Communities with Spring Boot 3.2.1, JDK 21, Gradle 8.5 & Spring Cloud Config Server.
  
 Service boots from 8888 port & Actuator Management is served from 8889 port.
 
@@ -32,9 +32,9 @@ Below you can find the names of the contributors to this project;
 
 For building and running the application belows are required;
 
-- [Spring Boot 3.0.0][spring-boot-version]
-- [JDK 17][java-version]
-- [Gradle 7.6 or above][gradle-version]
+- [Spring Boot 3.2.1][spring-boot-version]
+- [JDK 21][java-version]
+- [Gradle 8.5 or above][gradle-version]
 - [Spring Cloud Config Server][spring-cloud-config-server]
 - Eureka Client
 - Spring Boot Actuator
@@ -88,8 +88,8 @@ Permissions of this strong copyleft license are conditioned on making available 
 Please check the [LICENSE](LICENSE) file for more details.
 
 [evren-tan-github]: https://github.com/evrentan
-[spring-boot-version]: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Release-Notes
-[java-version]: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
+[spring-boot-version]: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.2-Release-Notes
+[java-version]: https://www.oracle.com/tr/java/technologies/downloads/
 [gradle-version]: https://gradle.org/releases/
 [spring-cloud-config-server]: https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html
 [contributor-covenant-badge]: https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg

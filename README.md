@@ -1,11 +1,13 @@
 # Community Workspace For Small  Communities
-A Community Workspace Project for Small Communities with Spring Boot 2.6.6, JDK 17 & Gradle.
+A Community Workspace Project for Small Communities with Spring Boot 3.2.1, JDK 21 & Gradle 8.5.
 
 Services are developed in the following modules:
 * **Community Manager** - Community Manager Service in order to manage community related functionalities.
 * **Service Discovery** - Service Discovery Service in order to discover other services.
+* **API Gateway** - API Gateway of the Overall Community Workspace.
 * **User Manager** - User Manager Service in order to manage user related functionalities.
-* **DB Migration Manager** - DB Migration Manager Service in order to manage DB migrations.
+* **Venue Manager** - Venue Manager Service in order to manage venue related functionalities.
+* **Event Manager** - Event Manager Service in order to manage Event related functionalities.
 
 ## Table of Contents
 
@@ -29,9 +31,9 @@ Please check the [Contributors List](CONTRIBUTORS.md) to see who makes this open
 
 For building and running the application belows are required;
 
-- [Spring Boot 3.0.0][spring-boot-version]
-- [JDK 17][java-version]
-- [Gradle 7.6 or above][gradle-version]
+- [Spring Boot 3.2.1][spring-boot-version]
+- [JDK 21][java-version]
+- [Gradle 8.5 or above][gradle-version]
 - [PostgreSQL][postgresql-version]
 - [Flyway Migration][flyway-migration]
 - Eureka Client
@@ -46,7 +48,7 @@ Below version control standards should be followed within the project;
 - Feature enhancements or defect fixes should not be committed to the default branch, they should be coded in feature or bug branches.
 - Issues should be created for each feature or fix in the [Community Workspace GitHub Repository Project][community-workspace-github].
 - Pull request (PR) should be created for each feature/bug branch to [staging branch][staging-branch-github-link].
-- While creating a PR "[Feature]: ", "[Bug]: " or "[Doc]: " prefix should be used to identify the PR type.
+- While creating a PR "[Feature]: ", "[Bug]: " or "[Chore]: " prefix should be used to identify the PR type.
 - PRs should be linked with a valid issue in the [Community Workspace GitHub Repository Project][community-workspace-github].
 - If validations are passed in the [staging branch][staging-branch-github-link], then a merge branch request is created with "merge branch" label & a linked PR to the [main branch][main-branch-github-link].
 
@@ -60,8 +62,8 @@ GNU General Public License v3.0
 Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 Please check the [LICENSE](LICENSE) file for more details.
 
-[spring-boot-version]: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Release-Notes
-[java-version]: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
+[spring-boot-version]: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.2-Release-Notes
+[java-version]: https://www.oracle.com/tr/java/technologies/downloads/
 [gradle-version]: https://gradle.org/releases/
 [postgresql-version]: https://www.postgresql.org/
 [flyway-migration]: https://flywaydb.org/documentation/
