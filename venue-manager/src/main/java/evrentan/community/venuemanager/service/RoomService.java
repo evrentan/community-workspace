@@ -1,7 +1,7 @@
 package evrentan.community.venuemanager.service;
 
-import evrentan.community.venuemanager.dto.Room;
-import evrentan.community.venuemanager.dto.VenueRoom;
+import evrentan.community.venuemanager.dto.entity.Room;
+import evrentan.community.venuemanager.dto.entity.VenueRoom;
 
 import java.util.List;
 import java.util.UUID;
@@ -86,7 +86,7 @@ public interface RoomService {
    *
    * @param roomId room id to be assigned to the venue
    * @param assignedVenueRoom venue that the room is assigned to
-   * @return UUID which is the id of the VenueRoom instance. Please, see the {@link evrentan.community.venuemanager.dto.VenueRoom} class for details.
+   * @return UUID which is the id of the VenueRoom instance. Please, see the {@link VenueRoom} class for details.
    *
    * @author <a href="https://github.com/evrentan">Evren Tan</a>
    * @since 1.0.0

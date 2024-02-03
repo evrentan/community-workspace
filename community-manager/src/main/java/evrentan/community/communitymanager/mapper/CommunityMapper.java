@@ -1,6 +1,6 @@
 package evrentan.community.communitymanager.mapper;
 
-import evrentan.community.communitymanager.dto.Community;
+import evrentan.community.communitymanager.dto.entity.Community;
 import evrentan.community.communitymanager.entity.CommunityEntity;
 
 import java.util.List;

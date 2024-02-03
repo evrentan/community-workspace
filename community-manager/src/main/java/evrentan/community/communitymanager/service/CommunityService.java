@@ -1,6 +1,6 @@
 package evrentan.community.communitymanager.service;
 
-import evrentan.community.communitymanager.dto.Community;
+import evrentan.community.communitymanager.dto.entity.Community;
 
 import java.util.List;
 import java.util.UUID;

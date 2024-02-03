@@ -1,5 +1,6 @@
 package evrentan.community.communitymanager.entity;
 
+import evrentan.community.communitymanager.dto.entity.Community;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,7 +8,7 @@ import java.util.UUID;
 
 /**
  * Community Entity Class represents the community table in the database.
- * It is represented by {@link evrentan.community.communitymanager.dto.Community} in DTO level.
+ * It is represented by {@link Community} in DTO level.
  *
  * @author <a href="https://github.com/evrentan">Evren Tan</a>
  * @since 1.0.0

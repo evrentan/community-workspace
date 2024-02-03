@@ -1,5 +1,6 @@
 package evrentan.community.communitymanager.exception;
 
+import evrentan.community.communitymanager.dto.exception.CustomRestError;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.BadRequestException;

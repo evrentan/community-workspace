@@ -1,6 +1,6 @@
 package evrentan.community.usermanager.controller;
 
-import evrentan.community.usermanager.dto.UserType;
+import evrentan.community.usermanager.dto.entity.UserType;
 import evrentan.community.usermanager.service.UserTypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

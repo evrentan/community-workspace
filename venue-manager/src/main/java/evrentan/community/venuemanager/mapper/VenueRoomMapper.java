@@ -1,6 +1,6 @@
 package evrentan.community.venuemanager.mapper;
 
-import evrentan.community.venuemanager.dto.VenueRoom;
+import evrentan.community.venuemanager.dto.entity.VenueRoom;
 import evrentan.community.venuemanager.entity.VenueRoomEntity;
 
 import java.util.List;

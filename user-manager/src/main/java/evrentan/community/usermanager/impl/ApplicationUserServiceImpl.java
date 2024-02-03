@@ -1,6 +1,6 @@
 package evrentan.community.usermanager.impl;
 
-import evrentan.community.usermanager.dto.ApplicationUser;
+import evrentan.community.usermanager.dto.entity.ApplicationUser;
 import evrentan.community.usermanager.entity.ApplicationUserEntity;
 import evrentan.community.usermanager.mapper.ApplicationUserMapper;
 import evrentan.community.usermanager.repository.ApplicationUserRepository;

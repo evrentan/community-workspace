@@ -1,7 +1,7 @@
 package evrentan.community.venuemanager.impl;
 
-import evrentan.community.venuemanager.dto.Venue;
-import evrentan.community.venuemanager.dto.VenueRoom;
+import evrentan.community.venuemanager.dto.entity.Venue;
+import evrentan.community.venuemanager.dto.entity.VenueRoom;
 import evrentan.community.venuemanager.entity.VenueEntity;
 import evrentan.community.venuemanager.mapper.VenueMapper;
 import evrentan.community.venuemanager.mapper.VenueRoomMapper;

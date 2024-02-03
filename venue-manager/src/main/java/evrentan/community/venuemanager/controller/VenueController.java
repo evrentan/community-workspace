@@ -1,7 +1,7 @@
 package evrentan.community.venuemanager.controller;
 
-import evrentan.community.venuemanager.dto.Venue;
-import evrentan.community.venuemanager.dto.VenueRoom;
+import evrentan.community.venuemanager.dto.entity.Venue;
+import evrentan.community.venuemanager.dto.entity.VenueRoom;
 import evrentan.community.venuemanager.service.VenueService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
