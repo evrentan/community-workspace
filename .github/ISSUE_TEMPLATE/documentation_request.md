@@ -1,8 +1,8 @@
 ---
 name: Documentation request
 about: Documentation request for this project
-title: "[Documentation]: "
-labels: ["documentation"]
+title: "[Chore]: "
+labels: ["chore"]
 assignees:
 - evrentan
 
