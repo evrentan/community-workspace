@@ -1,14 +1,15 @@
 package evrentan.community.communitymanager.impl;
 
 import evrentan.community.communitymanager.dto.entity.Community;
+import evrentan.community.communitymanager.exception.CommunityNotFoundException;
 import evrentan.community.communitymanager.entity.CommunityEntity;
 import evrentan.community.communitymanager.mapper.CommunityMapper;
+import evrentan.community.communitymanager.message.ExceptionMessages;
 import evrentan.community.communitymanager.repository.CommunityRepository;
 import evrentan.community.communitymanager.service.CommunityService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -51,7 +52,12 @@ public class CommunityServiceImpl implements CommunityService {
    */
   @Override
   public List<Community> getCommunities() {
-    return CommunityMapper.toDtoList(this.communityRepository.findAll());
+    List<Community> communityList = CommunityMapper.toDtoList(this.communityRepository.findAll());
+
+    if (communityList.isEmpty())
+      throw new CommunityNotFoundException(ExceptionMessages.COMMUNITY_NOT_FOUND);
+
+    return communityList;
   }
 
   /**
@@ -65,7 +71,7 @@ public class CommunityServiceImpl implements CommunityService {
    */
   @Override
   public Community getCommunity(UUID id) {
-    return CommunityMapper.toDto(this.communityRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Community not found")));
+    return CommunityMapper.toDto(this.communityRepository.findById(id).orElseThrow(() -> new CommunityNotFoundException(ExceptionMessages.COMMUNITY_NOT_FOUND)));
   }
 
   /**
@@ -95,11 +101,11 @@ public class CommunityServiceImpl implements CommunityService {
    */
   @Override
   public Community updateCommunity(UUID id, Community community) {
-    if(!Objects.equals(id, community.getId()))
+    if (!Objects.equals(id, community.getId()))
       throw new IllegalArgumentException("Ids do not match");
 
     if (!this.communityRepository.existsById(id))
-      throw new NoSuchElementException("Community not found");
+      throw new CommunityNotFoundException(ExceptionMessages.COMMUNITY_NOT_FOUND);
 
     return CommunityMapper.toDto(this.communityRepository.save(CommunityMapper.toEntity(community)));
   }
@@ -115,7 +121,7 @@ public class CommunityServiceImpl implements CommunityService {
    */
   @Override
   public Community updateCommunityStatus(UUID id, boolean status) {
-    CommunityEntity communityEntity = this.communityRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Community not found"));
+    CommunityEntity communityEntity = this.communityRepository.findById(id).orElseThrow(() -> new CommunityNotFoundException(ExceptionMessages.COMMUNITY_NOT_FOUND));
     communityEntity.setActive(status);
 
     return CommunityMapper.toDto(this.communityRepository.save(communityEntity));

@@ -33,7 +33,7 @@ public class GlobalRestExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<CustomRestError> badRequestException(final Exception exception, final HttpServletRequest httpServletRequest){
         var customRestError = CustomRestError.builder()
-                .message(exception.getCause().getMessage())
+                .message(exception.getMessage())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .build();
         return responseEntity(customRestError);
@@ -51,10 +51,13 @@ public class GlobalRestExceptionHandler {
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler({
+            NotFoundException.class,
+            CommunityNotFoundException.class
+    })
     public ResponseEntity<CustomRestError> notFoundException(final Exception exception, final HttpServletRequest httpServletRequest){
         var customRestError = CustomRestError.builder()
-                .message(exception.getCause().getMessage())
+                .message(exception.getMessage())
                 .status(HttpStatus.NOT_FOUND.value())
                 .build();
         return responseEntity(customRestError);
@@ -74,7 +77,7 @@ public class GlobalRestExceptionHandler {
     @ExceptionHandler(InternalServerErrorException.class)
     public ResponseEntity<CustomRestError> ınternalServerException(final Exception exception,final  HttpServletRequest httpServletRequest){
         var customRestError = CustomRestError.builder()
-                .message(exception.getCause().getMessage())
+                .message(exception.getMessage())
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .build();
         return responseEntity(customRestError);
