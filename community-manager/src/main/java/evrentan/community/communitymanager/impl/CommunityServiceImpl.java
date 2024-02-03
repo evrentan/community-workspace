@@ -1,6 +1,6 @@
 package evrentan.community.communitymanager.impl;
 
-import evrentan.community.communitymanager.dto.Community;
+import evrentan.community.communitymanager.dto.entity.Community;
 import evrentan.community.communitymanager.entity.CommunityEntity;
 import evrentan.community.communitymanager.mapper.CommunityMapper;
 import evrentan.community.communitymanager.repository.CommunityRepository;

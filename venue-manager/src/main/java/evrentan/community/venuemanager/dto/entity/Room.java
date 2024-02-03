@@ -1,4 +1,4 @@
-package evrentan.community.venuemanager.dto;
+package evrentan.community.venuemanager.dto.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

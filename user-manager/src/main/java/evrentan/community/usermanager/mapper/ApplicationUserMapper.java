@@ -1,6 +1,6 @@
 package evrentan.community.usermanager.mapper;
 
-import evrentan.community.usermanager.dto.ApplicationUser;
+import evrentan.community.usermanager.dto.entity.ApplicationUser;
 import evrentan.community.usermanager.entity.ApplicationUserEntity;
 
 import java.util.List;

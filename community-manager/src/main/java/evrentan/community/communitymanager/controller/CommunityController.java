@@ -1,6 +1,6 @@
 package evrentan.community.communitymanager.controller;
 
-import evrentan.community.communitymanager.dto.Community;
+import evrentan.community.communitymanager.dto.entity.Community;
 import evrentan.community.communitymanager.service.CommunityService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

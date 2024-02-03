@@ -1,5 +1,6 @@
 package evrentan.community.usermanager.entity;
 
+import evrentan.community.usermanager.dto.entity.UserType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,7 +9,7 @@ import java.util.UUID;
 
 /**
  * User Type Entity Class represents the user_type table in the database.
- * It is represented by {@link evrentan.community.usermanager.dto.UserType} in DTO level.
+ * It is represented by {@link UserType} in DTO level.
  *
  * @author <a href="https://github.com/evrentan">Evren Tan</a>
  * @since 1.0.0

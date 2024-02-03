@@ -1,6 +1,6 @@
 package evrentan.community.usermanager.service;
 
-import evrentan.community.usermanager.dto.UserType;
+import evrentan.community.usermanager.dto.entity.UserType;
 
 import java.util.List;
 import java.util.UUID;

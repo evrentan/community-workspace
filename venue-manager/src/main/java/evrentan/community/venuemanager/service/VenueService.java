@@ -1,7 +1,7 @@
 package evrentan.community.venuemanager.service;
 
-import evrentan.community.venuemanager.dto.Venue;
-import evrentan.community.venuemanager.dto.VenueRoom;
+import evrentan.community.venuemanager.dto.entity.Venue;
+import evrentan.community.venuemanager.dto.entity.VenueRoom;
 
 import java.util.List;
 import java.util.UUID;

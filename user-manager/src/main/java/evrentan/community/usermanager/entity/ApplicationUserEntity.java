@@ -1,5 +1,6 @@
 package evrentan.community.usermanager.entity;
 
+import evrentan.community.usermanager.dto.entity.ApplicationUser;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,7 +9,7 @@ import java.util.UUID;
 
 /**
  * Application User Entity Class represents the application_user table in the database.
- * It is represented by {@link evrentan.community.usermanager.dto.ApplicationUser} in DTO level.
+ * It is represented by {@link ApplicationUser} in DTO level.
  *
  * @author <a href="https://github.com/evrentan">Evren Tan</a>
  * @since 1.0.0

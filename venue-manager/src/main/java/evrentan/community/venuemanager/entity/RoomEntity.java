@@ -1,5 +1,6 @@
 package evrentan.community.venuemanager.entity;
 
+import evrentan.community.venuemanager.dto.entity.Room;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,7 +8,7 @@ import java.util.UUID;
 
 /**
  * Room Entity Class represents the venue table in the database.
- * It is represented by {@link evrentan.community.venuemanager.dto.Room} in DTO level.
+ * It is represented by {@link Room} in DTO level.
  *
  * @author <a href="https://github.com/evrentan">Evren Tan</a>
  * @since 1.0.0

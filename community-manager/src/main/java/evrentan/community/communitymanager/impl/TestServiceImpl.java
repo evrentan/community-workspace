@@ -1,6 +1,6 @@
 package evrentan.community.communitymanager.impl;
 
-import evrentan.community.communitymanager.dto.MyConfigurationProperty;
+import evrentan.community.communitymanager.dto.other.MyConfigurationProperty;
 import evrentan.community.communitymanager.service.TestService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
