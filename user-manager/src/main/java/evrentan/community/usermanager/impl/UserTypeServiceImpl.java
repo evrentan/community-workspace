@@ -2,13 +2,15 @@ package evrentan.community.usermanager.impl;
 
 import evrentan.community.usermanager.dto.entity.UserType;
 import evrentan.community.usermanager.entity.UserTypeEntity;
+import evrentan.community.usermanager.exception.UserTypeAlreadyExistsException;
+import evrentan.community.usermanager.exception.UserTypeNotFoundException;
 import evrentan.community.usermanager.mapper.UserTypeMapper;
+import evrentan.community.usermanager.message.ExceptionMessages;
 import evrentan.community.usermanager.repository.UserTypeRepository;
 import evrentan.community.usermanager.service.UserTypeService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -21,10 +23,6 @@ import java.util.UUID;
  */
 @Service
 public class UserTypeServiceImpl implements UserTypeService {
-
-  private static final String USER_TYPE_NOT_FOUND = "User Type does not exist !!!";
-  private static final String USER_TYPE_ALREADY_EXIST = "User Type already exists !!!";
-  private static final String ID_NOT_MATCH = "Id does not match !!!";
 
   private final UserTypeRepository userTypeRepository;
 
@@ -44,7 +42,7 @@ public class UserTypeServiceImpl implements UserTypeService {
   @Override
   public UserType createUserType(UserType userType) {
     if (this.userTypeRepository.existsDistinctByCode(userType.getCode()))
-      throw new IllegalArgumentException(USER_TYPE_ALREADY_EXIST);
+      throw new UserTypeAlreadyExistsException(ExceptionMessages.USER_TYPE_ALREADY_EXIST);
 
     return UserTypeMapper.toDto(this.userTypeRepository.save(UserTypeMapper.toEntity(userType)));
   }
@@ -59,7 +57,12 @@ public class UserTypeServiceImpl implements UserTypeService {
    */
   @Override
   public List<UserType> getUserTypes() {
-    return UserTypeMapper.toDtoList(this.userTypeRepository.findAll());
+    List<UserType> userTypeList = UserTypeMapper.toDtoList(this.userTypeRepository.findAll());
+
+    if (userTypeList.isEmpty())
+      throw new UserTypeNotFoundException(ExceptionMessages.USER_TYPE_NOT_FOUND);
+
+    return userTypeList;
   }
 
   /**
@@ -73,7 +76,7 @@ public class UserTypeServiceImpl implements UserTypeService {
    */
   @Override
   public UserType getUserType(UUID id) {
-    return UserTypeMapper.toDto(this.userTypeRepository.findById(id).orElseThrow(() -> new NoSuchElementException(USER_TYPE_NOT_FOUND)));
+    return UserTypeMapper.toDto(this.userTypeRepository.findById(id).orElseThrow(() -> new UserTypeNotFoundException(ExceptionMessages.USER_TYPE_NOT_FOUND)));
   }
 
   /**
@@ -89,10 +92,10 @@ public class UserTypeServiceImpl implements UserTypeService {
   @Override
   public UserType updateUserType(UUID id, UserType userType) {
     if (!Objects.equals(id, userType.getId()))
-      throw new IllegalArgumentException(ID_NOT_MATCH);
+      throw new UserTypeNotFoundException(ExceptionMessages.ID_NOT_MATCH);
 
     if (!this.userTypeRepository.existsById(id))
-      throw new NoSuchElementException(USER_TYPE_NOT_FOUND);
+      throw new UserTypeNotFoundException(ExceptionMessages.USER_TYPE_NOT_FOUND);
 
     return UserTypeMapper.toDto(this.userTypeRepository.save(UserTypeMapper.toEntity(userType)));
   }
@@ -108,7 +111,7 @@ public class UserTypeServiceImpl implements UserTypeService {
    */
   @Override
   public void updateUserTypeStatus(UUID id, boolean status) {
-    UserTypeEntity userTypeEntity = this.userTypeRepository.findById(id).orElseThrow(() -> new NoSuchElementException(USER_TYPE_NOT_FOUND));
+    UserTypeEntity userTypeEntity = this.userTypeRepository.findById(id).orElseThrow(() -> new UserTypeNotFoundException(ExceptionMessages.USER_TYPE_NOT_FOUND));
     userTypeEntity.setActive(status);
     this.userTypeRepository.save(userTypeEntity);
   }
