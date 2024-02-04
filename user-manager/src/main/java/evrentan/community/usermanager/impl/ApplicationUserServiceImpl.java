@@ -2,7 +2,10 @@ package evrentan.community.usermanager.impl;
 
 import evrentan.community.usermanager.dto.entity.ApplicationUser;
 import evrentan.community.usermanager.entity.ApplicationUserEntity;
+import evrentan.community.usermanager.exception.IdNotMatchException;
+import evrentan.community.usermanager.exception.UserNotFoundException;
 import evrentan.community.usermanager.mapper.ApplicationUserMapper;
+import evrentan.community.usermanager.message.ExceptionMessages;
 import evrentan.community.usermanager.repository.ApplicationUserRepository;
 import evrentan.community.usermanager.service.ApplicationUserService;
 import org.springframework.stereotype.Service;
@@ -21,10 +24,6 @@ import java.util.UUID;
  */
 @Service
 public class ApplicationUserServiceImpl implements ApplicationUserService {
-
-  private static final String USER_NOT_FOUND = "User does not exist !!!";
-  private static final String USER_ALREADY_EXIST = "User already exists !!!";
-  private static final String ID_NOT_MATCH = "Id does not match !!!";
 
   private final ApplicationUserRepository applicationUserRepository;
 
@@ -59,7 +58,12 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
    */
   @Override
   public List<ApplicationUser> getUsers() {
-    return ApplicationUserMapper.toDtoList(this.applicationUserRepository.findAll());
+    List<ApplicationUser> applicationUserList = ApplicationUserMapper.toDtoList(this.applicationUserRepository.findAll());
+
+    if (applicationUserList.isEmpty())
+      throw new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND);
+
+    return applicationUserList;
   }
 
   /**
@@ -73,7 +77,7 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
    */
   @Override
   public ApplicationUser getUserById(UUID id) {
-    return ApplicationUserMapper.toDto(this.applicationUserRepository.findById(id).orElseThrow(() -> new NoSuchElementException(USER_NOT_FOUND)));
+    return ApplicationUserMapper.toDto(this.applicationUserRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND)));
   }
 
   /**
@@ -87,7 +91,7 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
    */
   @Override
   public ApplicationUser getUserByEmail(String email) {
-    return ApplicationUserMapper.toDto(this.applicationUserRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException(USER_NOT_FOUND)));
+    return ApplicationUserMapper.toDto(this.applicationUserRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND)));
   }
 
   /**
@@ -103,10 +107,10 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
   @Override
   public ApplicationUser updateUser(UUID id, ApplicationUser applicationUser) {
     if (!Objects.equals(id, applicationUser.getId()))
-      throw new IllegalArgumentException(ID_NOT_MATCH);
+      throw new IdNotMatchException(ExceptionMessages.ID_NOT_MATCH);
 
     if (!this.applicationUserRepository.existsById(id))
-      throw new NoSuchElementException(USER_NOT_FOUND);
+      throw new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND);
 
     return ApplicationUserMapper.toDto(this.applicationUserRepository.save(ApplicationUserMapper.toEntity(applicationUser)));
   }
@@ -122,7 +126,7 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
    */
   @Override
   public void updateUserStatusById(UUID id, boolean status) {
-    ApplicationUserEntity applicationUserEntity = this.applicationUserRepository.findById(id).orElseThrow(() -> new NoSuchElementException(USER_NOT_FOUND));
+    ApplicationUserEntity applicationUserEntity = this.applicationUserRepository.findById(id).orElseThrow(() -> new UserNotFoundException(ExceptionMessages.USER_NOT_FOUND));
     applicationUserEntity.setActive(status);
     this.applicationUserRepository.save(applicationUserEntity);
   }
