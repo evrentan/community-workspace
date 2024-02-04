@@ -10,13 +10,11 @@ import evrentan.community.eventmanager.repository.EventRepository;
 import evrentan.community.eventmanager.service.CommunityService;
 import evrentan.community.eventmanager.service.EventService;
 import evrentan.community.eventmanager.service.VenueService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Event Service Implementation for Event Service Layer.
@@ -116,13 +114,22 @@ public class EventServiceImpl implements EventService {
      * @since 1.0.0
      */
     @Override
-    public Event updateEvent(UUID id, Event event) {
-        if(!Objects.equals(id, event.getId()))
-            throw new IllegalArgumentException("Ids do not match");
-        if(!this.eventRepository.existsById(id))
-            throw new NoSuchElementException("Event not found");
+    public ResponseEntity<Event> updateEvent(UUID id, Event event) {
+      if (Objects.isNull(id) || Objects.isNull(event) || Objects.equals(id, event.getId()))
+          return ResponseEntity.badRequest().build();
 
-        return EventMapper.toDto(this.eventRepository.save(EventMapper.toEntity(event)));
+        Optional<EventEntity> existingEvent = eventRepository.findById(id);
+
+        if (existingEvent.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        final Event updateEvent = this.save(event);
+
+        if (Objects.nonNull(updateEvent))
+            return ResponseEntity.ok(updateEvent);
+
+        return ResponseEntity.internalServerError().build();
+
     }
 
     private void doPreChecksForEventCreation(CreateEventRequest createEventRequest) {
@@ -144,5 +151,12 @@ public class EventServiceImpl implements EventService {
             if (!this.venueService.checkRoomStatusByIdAndCapacity(createEventRequest.getRoomId(), createEventRequest.getParticipantLimit()).getBody())
                 throw new NotFoundException(ROOM_NOT_AVAILABLE);
         }
+    }
+
+    private Event save(Event event) {
+        EventEntity eventEntity = EventMapper.toEntity(event);
+        eventEntity = eventRepository.save(eventEntity);
+        return EventMapper.toDto(eventEntity);
+
     }
 }

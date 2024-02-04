@@ -142,7 +142,7 @@ public class EventController {
              @ApiResponse(responseCode  = "500", description  = "Internal Server Error")
      })
     public ResponseEntity<Event> updateEvent(@PathVariable(value = "id") UUID id, @RequestBody @NotNull Event event){
-         return ResponseEntity.ok(this.eventService.updateEvent(id, event));
+         return this.eventService.updateEvent(id, event);
      }
 
 

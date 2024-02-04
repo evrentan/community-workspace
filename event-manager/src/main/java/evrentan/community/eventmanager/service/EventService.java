@@ -3,6 +3,7 @@ package evrentan.community.eventmanager.service;
 import evrentan.community.eventmanager.dto.entity.Event;
 import evrentan.community.eventmanager.dto.request.CreateEventRequest;
 import evrentan.community.eventmanager.dto.response.CreateEventResponse;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -68,5 +69,5 @@ public interface EventService {
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
-    Event updateEvent(UUID id, Event event);
+    ResponseEntity<Event> updateEvent(UUID id, Event event);
 }
