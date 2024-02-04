@@ -79,7 +79,8 @@ public class GlobalRestExceptionHandler {
      * @since 1.0.0
      */
     @ExceptionHandler({
-            UserTypeAlreadyExistsException.class
+            UserTypeAlreadyExistsException.class,
+            UserAlreadyExistsException.class
     })
     public ResponseEntity<CustomRestError> alreadyExistsException(final Exception exception, final HttpServletRequest httpServletRequest) {
         var customRestError = CustomRestError.builder()
