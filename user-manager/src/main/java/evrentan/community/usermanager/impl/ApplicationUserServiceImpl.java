@@ -3,6 +3,7 @@ package evrentan.community.usermanager.impl;
 import evrentan.community.usermanager.dto.entity.ApplicationUser;
 import evrentan.community.usermanager.entity.ApplicationUserEntity;
 import evrentan.community.usermanager.exception.IdNotMatchException;
+import evrentan.community.usermanager.exception.UserAlreadyExistsException;
 import evrentan.community.usermanager.exception.UserNotFoundException;
 import evrentan.community.usermanager.mapper.ApplicationUserMapper;
 import evrentan.community.usermanager.message.ExceptionMessages;
@@ -11,7 +12,6 @@ import evrentan.community.usermanager.service.ApplicationUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -43,7 +43,7 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
   @Override
   public ApplicationUser createUser(ApplicationUser applicationUser) {
     if (this.applicationUserRepository.existsDistinctByEmail(applicationUser.getEmail()))
-      throw new IllegalArgumentException(USER_ALREADY_EXIST);
+      throw new UserAlreadyExistsException(ExceptionMessages.USER_ALREADY_EXISTS);
 
     return ApplicationUserMapper.toDto(this.applicationUserRepository.save(ApplicationUserMapper.toEntity(applicationUser)));
   }
