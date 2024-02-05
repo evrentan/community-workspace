@@ -1,4 +1,4 @@
-package evrentan.community.eventmanager.exception;
+package evrentan.community.eventmanager.dto.exception;
 
 
 import lombok.Builder;
