@@ -1,6 +1,7 @@
 package evrentan.community.eventmanager.exception;
 
 
+import evrentan.community.eventmanager.dto.exception.CustomRestError;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.InternalServerErrorException;
@@ -29,7 +30,10 @@ public class GlobalRestExceptionHandler {
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
-    @ExceptionHandler(BadRequestException.class)
+    @ExceptionHandler({
+            BadRequestException.class,
+            IdNotMatchException.class
+    })
     public ResponseEntity<CustomRestError> badRequestException(final Exception exception, final HttpServletRequest httpServletRequest){
         var customRestError = CustomRestError.builder()
                 .message(exception.getCause().getMessage())
@@ -50,7 +54,10 @@ public class GlobalRestExceptionHandler {
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler({
+            NotFoundException.class,
+            EventNotFoundException.class
+    })
     public ResponseEntity<CustomRestError> notFoundException(final Exception exception, final HttpServletRequest httpServletRequest){
         var customRestError = CustomRestError.builder()
                 .message(exception.getCause().getMessage())
@@ -78,6 +85,17 @@ public class GlobalRestExceptionHandler {
                 .build();
         return responseEntity(customRestError);
     }
+
+    @ExceptionHandler(EventAlreadyExistsException.class)
+    public ResponseEntity<CustomRestError> alreadyExistsException(final Exception exception, final HttpServletRequest httpServletRequest){
+        var customRestError = CustomRestError.builder()
+                .message(exception.getCause().getMessage())
+                .status(HttpStatus.CONFLICT.value())
+                .build();
+        return responseEntity(customRestError);
+    }
+
+
 
     private static ResponseEntity<CustomRestError> responseEntity(CustomRestError customRestError){
         return ResponseEntity.status(HttpStatus.valueOf(customRestError.getStatus()))
