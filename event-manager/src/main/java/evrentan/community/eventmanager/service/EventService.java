@@ -69,5 +69,5 @@ public interface EventService {
      * @author <a href="https://github.com/Onuraktasj">Onur Aktas</a>
      * @since 1.0.0
      */
-    ResponseEntity<Event> updateEvent(UUID id, Event event);
+    Event updateEvent(UUID id, Event event);
 }
