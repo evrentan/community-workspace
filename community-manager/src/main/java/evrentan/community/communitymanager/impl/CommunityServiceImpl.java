@@ -7,10 +7,13 @@ import evrentan.community.communitymanager.mapper.CommunityMapper;
 import evrentan.community.communitymanager.message.ExceptionMessages;
 import evrentan.community.communitymanager.repository.CommunityRepository;
 import evrentan.community.communitymanager.service.CommunityService;
+import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.InternalServerErrorException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -101,13 +104,19 @@ public class CommunityServiceImpl implements CommunityService {
    */
   @Override
   public Community updateCommunity(UUID id, Community community) {
-    if (!Objects.equals(id, community.getId()))
-      throw new IllegalArgumentException("Ids do not match");
+    if (Objects.isNull(id) || Objects.isNull(community.getId()) || Objects.equals(id,community.getId()))
+      throw  new BadRequestException("Bad Request");
 
-    if (!this.communityRepository.existsById(id))
-      throw new CommunityNotFoundException(ExceptionMessages.COMMUNITY_NOT_FOUND);
+    Optional<CommunityEntity> existCommunity = this.communityRepository.findById(id);
+    if (existCommunity.isEmpty())
+      throw new CommunityNotFoundException("Community Not Found");
 
-    return CommunityMapper.toDto(this.communityRepository.save(CommunityMapper.toEntity(community)));
+    final Community updateCommunity = this.save(community);
+
+    if (Objects.isNull(updateCommunity))
+      throw new InternalServerErrorException("Community Not Updated");
+
+    return updateCommunity;
   }
 
   /**
@@ -125,5 +134,11 @@ public class CommunityServiceImpl implements CommunityService {
     communityEntity.setActive(status);
 
     return CommunityMapper.toDto(this.communityRepository.save(communityEntity));
+  }
+
+  private Community save(Community community){
+    CommunityEntity communityEntity = CommunityMapper.toEntity(community);
+    communityEntity = this.communityRepository.save(communityEntity);
+    return CommunityMapper.toDto(communityEntity);
   }
 }
