@@ -3,7 +3,6 @@ package evrentan.community.eventmanager.service;
 import evrentan.community.eventmanager.dto.entity.Event;
 import evrentan.community.eventmanager.dto.request.CreateEventRequest;
 import evrentan.community.eventmanager.dto.response.CreateEventResponse;
-
 import java.util.List;
 import java.util.UUID;
 

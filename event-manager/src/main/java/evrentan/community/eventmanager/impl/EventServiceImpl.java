@@ -4,19 +4,19 @@ import evrentan.community.eventmanager.dto.entity.Event;
 import evrentan.community.eventmanager.dto.request.CreateEventRequest;
 import evrentan.community.eventmanager.dto.response.CreateEventResponse;
 import evrentan.community.eventmanager.entity.EventEntity;
+import evrentan.community.eventmanager.exception.EventNotFoundException;
 import evrentan.community.eventmanager.mapper.CreateEventResponseMapper;
 import evrentan.community.eventmanager.mapper.EventMapper;
 import evrentan.community.eventmanager.repository.EventRepository;
 import evrentan.community.eventmanager.service.CommunityService;
 import evrentan.community.eventmanager.service.EventService;
 import evrentan.community.eventmanager.service.VenueService;
+import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.InternalServerErrorException;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Event Service Implementation for Event Service Layer.
@@ -117,12 +117,19 @@ public class EventServiceImpl implements EventService {
      */
     @Override
     public Event updateEvent(UUID id, Event event) {
-        if(!Objects.equals(id, event.getId()))
-            throw new IllegalArgumentException("Ids do not match");
-        if(!this.eventRepository.existsById(id))
-            throw new NoSuchElementException("Event not found");
+        if (Objects.isNull(id) || Objects.isNull(event.getId()) || Objects.equals(id,event.getId()))
+            throw  new BadRequestException("Bad Request");
 
-        return EventMapper.toDto(this.eventRepository.save(EventMapper.toEntity(event)));
+        Optional<EventEntity> existCommunity = this.eventRepository.findById(id);
+        if (existCommunity.isEmpty())
+            throw new EventNotFoundException("Event Not Found");
+
+        final Event updateEvent = this.save(event);
+
+        if (Objects.isNull(updateEvent))
+            throw new InternalServerErrorException("Event Not Updated");
+
+        return updateEvent;
     }
 
     private void doPreChecksForEventCreation(CreateEventRequest createEventRequest) {
@@ -144,5 +151,11 @@ public class EventServiceImpl implements EventService {
             if (!this.venueService.checkRoomStatusByIdAndCapacity(createEventRequest.getRoomId(), createEventRequest.getParticipantLimit()).getBody())
                 throw new NotFoundException(ROOM_NOT_AVAILABLE);
         }
+    }
+
+    private Event save(Event event){
+        EventEntity eventEntity = EventMapper.toEntity(event);
+        eventEntity = this.eventRepository.save(eventEntity);
+        return EventMapper.toDto(eventEntity);
     }
 }
